@@ -1,6 +1,7 @@
 #!/usb/bin/env python
 
 import os
+
 from setuptools import setup
 
 try:
@@ -29,7 +30,8 @@ setup(name='mdscripts', author='Andras Wacha',
       package_dir={'': 'src'},
       packages=['mdscripts'],
       entry_points={'gui_scripts': ['gmx_extract_energy = mdscripts.gmx_extract_energy:run'],
-                    'console_scripts': ['gmx_insert_protein = mdscripts.insertprotein:run'],
+                    'console_scripts': ['gmx_insert_protein = mdscripts.insertprotein:run',
+                                        'gmx_intralayer_solvents = mdscripts.find_intrabilayer_solvent:run'],
                     },
       package_data={'': ['*.ui']},
       install_requires=['numpy>=1.0.0', 'matplotlib',
