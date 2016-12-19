@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'src/mdscripts/gmx_extract_energy.ui'
+# Form implementation generated from reading ui file 'src/mdscripts/extract_energy.ui'
 #
 # Created by: PyQt5 UI code generator 5.6
 #
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
 
 class Ui_gmx_extract_energy(object):
     def setupUi(self, gmx_extract_energy):
@@ -26,7 +25,7 @@ class Ui_gmx_extract_energy(object):
         self.toolBox = QtWidgets.QToolBox(self.splitter)
         self.toolBox.setObjectName("toolBox")
         self.pageOpenFile = QtWidgets.QWidget()
-        self.pageOpenFile.setGeometry(QtCore.QRect(0, 0, 558, 555))
+        self.pageOpenFile.setGeometry(QtCore.QRect(0, 0, 558, 524))
         self.pageOpenFile.setObjectName("pageOpenFile")
         self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.pageOpenFile)
         self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
@@ -36,7 +35,7 @@ class Ui_gmx_extract_energy(object):
         self.verticalLayout_3.addWidget(self.treeViewOpenFile)
         self.toolBox.addItem(self.pageOpenFile, "")
         self.pageCurves = QtWidgets.QWidget()
-        self.pageCurves.setGeometry(QtCore.QRect(0, 0, 558, 555))
+        self.pageCurves.setGeometry(QtCore.QRect(0, 0, 558, 524))
         self.pageCurves.setObjectName("pageCurves")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.pageCurves)
         self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
@@ -54,6 +53,15 @@ class Ui_gmx_extract_energy(object):
         self.horizontalLayout_3.addWidget(self.hideAllPushButton)
         self.verticalLayout_2.addWidget(self.widget_3)
         self.toolBox.addItem(self.pageCurves, "")
+        self.statisticsPage = QtWidgets.QWidget()
+        self.statisticsPage.setObjectName("statisticsPage")
+        self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.statisticsPage)
+        self.verticalLayout_4.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_4.setObjectName("verticalLayout_4")
+        self.statisticsTreeView = QtWidgets.QTreeView(self.statisticsPage)
+        self.statisticsTreeView.setObjectName("statisticsTreeView")
+        self.verticalLayout_4.addWidget(self.statisticsTreeView)
+        self.toolBox.addItem(self.statisticsPage, "")
         self.widget = QtWidgets.QWidget(self.splitter)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
@@ -64,6 +72,43 @@ class Ui_gmx_extract_energy(object):
         self.verticalLayout = QtWidgets.QVBoxLayout(self.widget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setObjectName("verticalLayout")
+        self.widget_4 = QtWidgets.QWidget(self.widget)
+        self.widget_4.setObjectName("widget_4")
+        self.gridLayout = QtWidgets.QGridLayout(self.widget_4)
+        self.gridLayout.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout.setObjectName("gridLayout")
+        self.label = QtWidgets.QLabel(self.widget_4)
+        self.label.setObjectName("label")
+        self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
+        self.tminSlider = QtWidgets.QSlider(self.widget_4)
+        self.tminSlider.setOrientation(QtCore.Qt.Horizontal)
+        self.tminSlider.setObjectName("tminSlider")
+        self.gridLayout.addWidget(self.tminSlider, 0, 1, 1, 1)
+        self.tminSpinBox = QtWidgets.QDoubleSpinBox(self.widget_4)
+        self.tminSpinBox.setObjectName("tminSpinBox")
+        self.gridLayout.addWidget(self.tminSpinBox, 0, 2, 1, 1)
+        self.label_2 = QtWidgets.QLabel(self.widget_4)
+        self.label_2.setObjectName("label_2")
+        self.gridLayout.addWidget(self.label_2, 1, 0, 1, 1)
+        self.tmaxSlider = QtWidgets.QSlider(self.widget_4)
+        self.tmaxSlider.setOrientation(QtCore.Qt.Horizontal)
+        self.tmaxSlider.setObjectName("tmaxSlider")
+        self.gridLayout.addWidget(self.tmaxSlider, 1, 1, 1, 1)
+        self.tmaxSpinBox = QtWidgets.QDoubleSpinBox(self.widget_4)
+        self.tmaxSpinBox.setObjectName("tmaxSpinBox")
+        self.gridLayout.addWidget(self.tmaxSpinBox, 1, 2, 1, 1)
+        self.label_3 = QtWidgets.QLabel(self.widget_4)
+        self.label_3.setObjectName("label_3")
+        self.gridLayout.addWidget(self.label_3, 2, 0, 1, 1)
+        self.smoothingSlider = QtWidgets.QSlider(self.widget_4)
+        self.smoothingSlider.setMaximum(100)
+        self.smoothingSlider.setOrientation(QtCore.Qt.Horizontal)
+        self.smoothingSlider.setObjectName("smoothingSlider")
+        self.gridLayout.addWidget(self.smoothingSlider, 2, 1, 1, 1)
+        self.smoothingSpinBox = QtWidgets.QSpinBox(self.widget_4)
+        self.smoothingSpinBox.setObjectName("smoothingSpinBox")
+        self.gridLayout.addWidget(self.smoothingSpinBox, 2, 2, 1, 1)
+        self.verticalLayout.addWidget(self.widget_4)
         self.figureFrame = QtWidgets.QFrame(self.widget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
@@ -128,7 +173,13 @@ class Ui_gmx_extract_energy(object):
                                  _translate("gmx_extract_energy", "Open file..."))
         self.hideAllPushButton.setText(_translate("gmx_extract_energy", "Hide all"))
         self.toolBox.setItemText(self.toolBox.indexOf(self.pageCurves), _translate("gmx_extract_energy", "Curves"))
+        self.toolBox.setItemText(self.toolBox.indexOf(self.statisticsPage),
+                                 _translate("gmx_extract_energy", "Statistics"))
+        self.label.setText(_translate("gmx_extract_energy", "t_min for averaging:"))
+        self.label_2.setText(_translate("gmx_extract_energy", "t_max for averaging:"))
+        self.label_3.setText(_translate("gmx_extract_energy", "Smoothing:"))
         self.toolButtonGoFirst.setText(_translate("gmx_extract_energy", "..."))
         self.toolButtonGoPrevious.setText(_translate("gmx_extract_energy", "..."))
         self.toolButtonGoNext.setText(_translate("gmx_extract_energy", "..."))
         self.toolButtonGoLast.setText(_translate("gmx_extract_energy", "..."))
+

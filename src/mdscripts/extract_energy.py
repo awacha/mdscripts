@@ -7,11 +7,12 @@ import sys
 import tempfile
 
 import numpy as np
+import scipy.signal
 from PyQt5 import QtCore, QtWidgets
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg, NavigationToolbar2QT
 from matplotlib.figure import Figure
 
-from .gmx_extract_energy_ui import Ui_gmx_extract_energy
+from .extract_energy_ui import Ui_gmx_extract_energy
 
 
 class CurvesModel(QtCore.QAbstractItemModel):
@@ -95,9 +96,81 @@ class CurvesModel(QtCore.QAbstractItemModel):
         self.dataChanged.emit(self.index(0, 1), self.index(self.rowCount(), 2))
 
 
+class StatisticsModel(QtCore.QAbstractItemModel):
+    # columns: name, mean, median, trend, std, std (pcnt), ptp, ptp (pcnt),
+    def __init__(self, data, labels, tmin=None, tmax=None):
+        super().__init__()
+        self.data = data
+        self.labels = labels
+        if tmin is None:
+            tmin = data[:, 0].min()
+        if tmax is None:
+            tmax = data[:, 0].max()
+        self.tmin = tmin
+        self.tmax = tmax
+
+    def columnCount(self, parent=None):
+        return 8
+
+    def data(self, index: QtCore.QModelIndex, role=None):
+        datacolumn = index.row() + 1
+        dataidx = np.logical_and(self.data[:, 0] >= self.tmin, self.data[:, 0] <= self.tmax)
+        data = self.data[dataidx, datacolumn]
+        if role != QtCore.Qt.DisplayRole:
+            return None
+        if index.column() == 0:
+            return self.labels[datacolumn]
+        elif index.column() == 1:
+            return str(np.mean(data))
+        elif index.column() == 2:
+            return str(np.median(data))
+        elif index.column() == 3:
+            coeffs = np.polyfit(self.data[dataidx, 0], data, 1)
+            return str(coeffs[1])
+        elif index.column() == 4:
+            return str(np.std(data))
+        elif index.column() == 5:
+            return str(np.std(data) / np.mean(data) * 100)
+        elif index.column() == 6:
+            return str(np.ptp(data))
+        elif index.column() == 7:
+            return str(np.ptp(data) / np.mean(data) * 100)
+        else:
+            return None
+
+    def flags(self, index: QtCore.QModelIndex):
+        return QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemNeverHasChildren
+
+    def index(self, row, col, parent=None):
+        return self.createIndex(row, col, None)
+
+    def rowCount(self, parent=None):
+        return self.data.shape[1] - 1
+
+    def parent(self, index: QtCore.QModelIndex = None):
+        return QtCore.QModelIndex()
+
+    def headerData(self, column, orientation, role=None):
+        if orientation != QtCore.Qt.Horizontal:
+            return None
+        if role == QtCore.Qt.DisplayRole:
+            return ['Name', 'Mean', 'Median', 'Trend', 'STD', 'STD %', 'P2P', 'P2P %'][column]
+
+    def setTmin(self, value):
+        self.tmin = value
+        self.dataChanged.emit(self.index(0, 1), self.index(self.rowCount(), self.columnCount()),
+                              [QtCore.Qt.DisplayRole])
+
+    def setTmax(self, value):
+        self.tmax = value
+        self.dataChanged.emit(self.index(0, 1), self.index(self.rowCount(), self.columnCount()),
+                              [QtCore.Qt.DisplayRole])
+
+
 class MainWindow(QtWidgets.QWidget, Ui_gmx_extract_energy):
     def __init__(self):
         QtWidgets.QWidget.__init__(self)
+        self.cursor = None
         self.setupUi(self)
 
     def setupUi(self, Form):
@@ -119,7 +192,21 @@ class MainWindow(QtWidgets.QWidget, Ui_gmx_extract_energy):
         Form.verticalLayoutFigure.addWidget(Form.figureCanvas)
         Form.navigationToolBar = NavigationToolbar2QT(Form.figureCanvas, Form)
         Form.verticalLayoutFigure.addWidget(Form.navigationToolBar)
-        Form.hideAllPushButton.clicked.connect(self.hideAll)
+        Form.hideAllPushButton.clicked.connect(Form.hideAll)
+        Form.toolButtonGoFirst.clicked.connect(
+            lambda: Form.horizontalSliderCursor.triggerAction(Form.horizontalSliderCursor.SliderToMinimum))
+        Form.toolButtonGoLast.clicked.connect(
+            lambda: Form.horizontalSliderCursor.triggerAction(Form.horizontalSliderCursor.SliderToMaximum))
+        Form.toolButtonGoNext.clicked.connect(
+            lambda: Form.horizontalSliderCursor.triggerAction(Form.horizontalSliderCursor.SliderSingleStepAdd))
+        Form.toolButtonGoPrevious.clicked.connect(
+            lambda: Form.horizontalSliderCursor.triggerAction(Form.horizontalSliderCursor.SliderSingleStepSub))
+        Form.tminSlider.valueChanged.connect(Form.onTminSliderValueChanged)
+        Form.tmaxSlider.valueChanged.connect(Form.onTmaxSliderValueChanged)
+        Form.smoothingSlider.valueChanged.connect(Form.onSmoothingChanged)
+
+    def onSmoothingChanged(self, smoothing):
+        self.replot()
 
     def onFileSelected(self, index):
         assert isinstance(self.fsmodel, QtWidgets.QFileSystemModel)
@@ -127,7 +214,7 @@ class MainWindow(QtWidgets.QWidget, Ui_gmx_extract_energy):
         self.openFile(filename)
 
     def openFile(self, filename):
-        self.setCurveData(*gmx_extract_energy(filename))
+        self.setCurveData(*extract_energy(filename))
 
     def hideAll(self):
         try:
@@ -142,15 +229,57 @@ class MainWindow(QtWidgets.QWidget, Ui_gmx_extract_energy):
         self.curveModel = CurvesModel(self.labels[1:])
         self.treeViewCurves.setModel(self.curveModel)
         self.curveModel.dataChanged.connect(self.curveModelDataChanged)
+        self.statModel = StatisticsModel(self.data, self.labels)
+        self.statisticsTreeView.setModel(self.statModel)
         if this_is_the_first_model:
             for col in range(1, self.curveModel.columnCount()):
                 self.treeViewCurves.resizeColumnToContents(col)
+            for col in range(1, self.statModel.columnCount()):
+                self.statisticsTreeView.resizeColumnToContents(col)
+        self.setScalerLimits()
         self.replot()
+
+    def setScalerLimits(self):
+        self.horizontalSliderCursor.setMinimum(0)
+        self.horizontalSliderCursor.setMaximum(self.data.shape[0] - 1)
+        self.tminSlider.setMinimum(0)
+        self.tminSlider.setMaximum(self.data.shape[0] - 1)
+        self.tmaxSlider.setMinimum(0)
+        self.tmaxSlider.setMaximum(self.data.shape[0] - 1)
+        self.tmaxSlider.setValue(self.data.shape[0] - 1)
+        self.tminSlider.setValue(0)
+        self.tminSpinBox.setMinimum(self.data[0, 0])
+        self.tminSpinBox.setMaximum(self.data[-1, 0])
+        self.tmaxSpinBox.setMinimum(self.data[0, 0])
+        self.tmaxSpinBox.setMaximum(self.data[-1, 0])
+        self.smoothingSlider.setMinimum(0)
+        self.smoothingSlider.setMaximum(int(np.floor(0.5 * (self.data.shape[0] - 1))))
+
+    def onTminSliderValueChanged(self, value):
+        if value > self.tmaxSlider.value():
+            self.tminSlider.setValue(self.tmaxSlider.value())
+        self.tminSpinBox.setValue(self.cursorposToTime(self.tminSlider.value()))
+        self.statModel.setTmin(self.cursorposToTime(self.tminSlider.value()))
+
+    def cursorposToTime(self, cursorpos):
+        return self.data[:, 0][cursorpos]
+
+    def timeToCursorpos(self, time):
+        return np.searchsorted(self.data[:, 0], time, side='right')
+
+    def onTmaxSliderValueChanged(self, value):
+        if value < self.tminSlider.value():
+            self.tmaxSlider.setValue(self.tminSlider.value())
+        self.tmaxSpinBox.setValue(self.cursorposToTime(self.tmaxSlider.value()))
+        self.statModel.setTmax(self.cursorposToTime(self.tmaxSlider.value()))
 
     def curveModelDataChanged(self, idx1, idx2, roles):
         self.replot()
 
     def replot(self):
+        smoothing = 2 * self.smoothingSlider.value() + 1
+        if smoothing < 3:
+            smoothing = None
         assert isinstance(self.figure, Figure)
         self.figure.clear()
         axesleft = self.figure.add_subplot(1, 1, 1)
@@ -159,17 +288,21 @@ class MainWindow(QtWidgets.QWidget, Ui_gmx_extract_energy):
         lines = []
         labels = []
         for i in range(1, len(self.labels)):
+            if smoothing is not None:
+                curve = scipy.signal.savgol_filter(self.data[:, i], smoothing, 2)
+            else:
+                curve = self.data[:, i]
             if self.curveModel.showOnLeft(i - 1):
-                lines.append(axesleft.plot(self.data[:, 0], self.data[:, i], label=self.labels[i])[0])
+                lines.append(axesleft.plot(self.data[:, 0], curve, label=self.labels[i])[0])
                 labels.append(self.labels[i])
             if self.curveModel.showOnRight(i - 1):
-                lines.append(axesright.plot(self.data[:, 0], self.data[:, i], label=self.labels[i])[0])
+                lines.append(axesright.plot(self.data[:, 0], curve, label=self.labels[i])[0])
                 labels.append(self.labels[i])
         self.figure.legend(lines, labels)
         self.figureCanvas.draw()
 
 
-def gmx_extract_energy(edrfile, structurefile=None, outputfile=None):
+def extract_energy(edrfile, structurefile=None, outputfile=None):
     handle = None
     if outputfile is None:
         handle, outputfile = tempfile.mkstemp('.xvg')
@@ -212,7 +345,6 @@ def read_xvg(filename):
             if l.startswith('@'):
                 continue
             data.append([float(x) for x in l.split()])
-
     return np.array(data), labels
 
 
@@ -226,7 +358,7 @@ def run():
                         help='.tpr file', const='topol.tpr', default=None)
     args = vars(parser.parse_args())
 
-    data, labels = gmx_extract_energy(args['f'], args['s'], args['o'])
+    data, labels = extract_energy(args['f'], args['s'], args['o'])
     if args["w"]:
         from PyQt5.QtWidgets import QApplication
         app = QApplication([sys.argv[0]])

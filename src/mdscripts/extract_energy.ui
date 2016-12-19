@@ -35,7 +35,7 @@
          <x>0</x>
          <y>0</y>
          <width>558</width>
-         <height>555</height>
+            <height>524</height>
         </rect>
        </property>
        <attribute name="label">
@@ -53,7 +53,7 @@
          <x>0</x>
          <y>0</y>
          <width>558</width>
-         <height>555</height>
+            <height>524</height>
         </rect>
        </property>
        <attribute name="label">
@@ -78,6 +78,16 @@
         </item>
        </layout>
       </widget>
+         <widget class="QWidget" name="statisticsPage">
+             <attribute name="label">
+                 <string>Statistics</string>
+             </attribute>
+             <layout class="QVBoxLayout" name="verticalLayout_4">
+                 <item>
+                     <widget class="QTreeView" name="statisticsTreeView"/>
+                 </item>
+             </layout>
+         </widget>
      </widget>
      <widget class="QWidget" name="widget" native="true">
       <property name="sizePolicy">
@@ -87,6 +97,66 @@
        </sizepolicy>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+              <widget class="QWidget" name="widget_4" native="true">
+                  <layout class="QGridLayout" name="gridLayout">
+                      <item row="0" column="0">
+                          <widget class="QLabel" name="label">
+                              <property name="text">
+                                  <string>t_min for averaging:</string>
+                              </property>
+                          </widget>
+                      </item>
+                      <item row="0" column="1">
+                          <widget class="QSlider" name="tminSlider">
+                              <property name="orientation">
+                                  <enum>Qt::Horizontal</enum>
+                              </property>
+                          </widget>
+                      </item>
+                      <item row="0" column="2">
+                          <widget class="QDoubleSpinBox" name="tminSpinBox"/>
+                      </item>
+                      <item row="1" column="0">
+                          <widget class="QLabel" name="label_2">
+                              <property name="text">
+                                  <string>t_max for averaging:</string>
+                              </property>
+                          </widget>
+                      </item>
+                      <item row="1" column="1">
+                          <widget class="QSlider" name="tmaxSlider">
+                              <property name="orientation">
+                                  <enum>Qt::Horizontal</enum>
+                              </property>
+                          </widget>
+                      </item>
+                      <item row="1" column="2">
+                          <widget class="QDoubleSpinBox" name="tmaxSpinBox"/>
+                      </item>
+                      <item row="2" column="0">
+                          <widget class="QLabel" name="label_3">
+                              <property name="text">
+                                  <string>Smoothing:</string>
+                              </property>
+                          </widget>
+                      </item>
+                      <item row="2" column="1">
+                          <widget class="QSlider" name="smoothingSlider">
+                              <property name="maximum">
+                                  <number>100</number>
+                              </property>
+                              <property name="orientation">
+                                  <enum>Qt::Horizontal</enum>
+                              </property>
+                          </widget>
+                      </item>
+                      <item row="2" column="2">
+                          <widget class="QSpinBox" name="smoothingSpinBox"/>
+                      </item>
+                  </layout>
+              </widget>
+          </item>
        <item>
         <widget class="QFrame" name="figureFrame">
          <property name="sizePolicy">

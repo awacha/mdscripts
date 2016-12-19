@@ -1,60 +1,25 @@
 import argparse
-import re
 import sys
 
 import numpy as np
 
-
-def loadgro(grofile):
-    with open(grofile, 'rt', encoding='utf-8') as f:
-        comment = f.readline()
-        nentries = int(f.readline())
-        grodata = np.zeros(nentries,
-                           dtype=[('resi', 'i4'), ('resn', 'S6'), ('atomtype', 'S6'), ('atomidx', 'i4'), ('x', 'f4'),
-                                  ('y', 'f4'),
-                                  ('z', 'f4')])
-        for i in range(nentries):
-            l = f.readline()
-            m = re.match(
-                "\s*(?P<resi>\d+)(?P<resn>\w+)\s+(?P<atomtype>\w{1,3})\s*(?P<atomidx>\d+)\s+(?P<x>[+-]?\d+\.\d+)\s+(?P<y>[+-]?\d+\.\d+)\s+(?P<z>[+-]?\d+\.\d+)",
-                l)
-            if m is None:
-                raise ValueError('Cannot parse line #{:d} in file {}:\n'.format(i + 2, grofile), l)
-            resi, resn, atomtype, atomidx, x, y, z = m.groups()
-            grodata[i] = (int(resi), resn, atomtype, int(atomidx), float(x), float(y), float(z))
-        boxx, boxy, boxz = [float(x) for x in f.readline().split()]
-        return grodata, comment, (boxx, boxy, boxz)
+from .insertprotein import adjust_topology
+from .io.backoff import backoff
+from .io.gro import GROFile
 
 
-def getresidues(grodata):
-    return set(grodata['resn'].tolist())
-
-
-def getatomtypes(grodata, resn):
-    if not isinstance(resn, bytes):
-        resn = resn.encode('ascii')
-    return set(grodata[grodata['resn'] == resn]['atomtype'].tolist())
-
-
-def getheadlayers(grodata, lipidname, atomtype=b'P8'):
-    print(atomtype)
-    if not isinstance(atomtype, bytes):
-        atomtype = atomtype.encode('ascii')
-    if not isinstance(lipidname, bytes):
-        lipidname = lipidname.encode('ascii')
-    zP = grodata[(grodata['resn'] == lipidname) & (grodata['atomtype'] == atomtype)]['z']
+def getheadlayers(grofile: GROFile, lipidname, atomtype=b'P8'):
+    zP = grofile.filter_resn(lipidname).filter_atomname(atomtype).z()
     lower = zP[zP < np.median(zP)].mean()
     upper = zP[zP > np.median(zP)].mean()
     return lower, upper
 
 
-def interlayersolvents(grodata, lipidname, solventname, headgroup_atomtype=b'P8'):
-    if not isinstance(solventname, bytes):
-        solventname = solventname.encode('ascii')
-    lower, upper = getheadlayers(grodata, lipidname, headgroup_atomtype)
-    badsolventidx = (grodata['resn'] == solventname) & (grodata['z'] >= lower) & (grodata['z'] <= upper)
-    badresids = {b['resi'] for b in grodata[badsolventidx]}
-    return badresids, lower, upper
+def interlayersolvents(grofile: GROFile, lipidname, solventname, headgroup_atomtype=b'P8'):
+    lower, upper = getheadlayers(grofile, lipidname, headgroup_atomtype)
+    solvents = grofile.filter_resn(solventname)
+    badatomidx = (solvents.z() >= lower) & (solvents.z() <= upper)
+    return solvents.filter_boolflags(solvents.extend_boolflags_to_residues(badatomidx)), lower, upper
 
 
 def run():
@@ -73,30 +38,25 @@ def run():
     if args['inputfile'] is None or args['lipidname'] is None:
         parser.print_help()
         sys.exit(1)
-    grodata, comment, boxsize = loadgro(args['inputfile'])
-    print('Loaded {:d} atoms from file {}.'.format(len(grodata), args['inputfile']))
-    badresids, lower, upper = interlayersolvents(grodata, args['lipidname'], args['solventname'], args['atomtype'])
+    gro = GROFile.new_from_file(args['inputfile'])
+    print('Loaded {:d} atoms from file {}.'.format(len(gro), args['inputfile']))
+    badsolvents, lower, upper = interlayersolvents(gro, args['lipidname'], args['solventname'], args['atomtype'])
     print('Lower and upper mean z coordinates of the head group layer: {} and {}'.format(lower, upper))
-    print('Found {} misplaced solvent molecules:'.format(len(badresids)))
-    print('  ', ', '.join('{:d}{}'.format(b, args['solventname']) for b in sorted(badresids)))
-    for g in grodata:
-        if g['resn'] == args['solventname'].encode('ascii') and g['resi'] in badresids:
-            g['atomtype'] = b'$$'
-    goodgro = grodata[grodata['atomtype'] != b'$$']
-    print(len(goodgro))
-    print(goodgro)
-    with open(args['finalgro'], 'wt', encoding='utf-8') as f:
-        f.write(comment.strip() + '\n')
-        f.write('{:d}\n'.format(len(goodgro)))
-        iatom = 0
-        iresidue = 0
-        residue = None
-        for atom in goodgro:
-            iatom += 1
-            if str(atom['resi']) + atom['resn'].decode('ascii') != residue:
-                iresidue += 1
-                residue = str(atom['resi']) + atom['resn'].decode('ascii')
-            f.write('{:>8}{:>7}{:>5}{:>8.3f}{:>8.3f}{:8.3f}\n'.format(residue, atom['atomtype'].decode('ascii'), iatom,
-                                                                      atom['x'], atom['y'], atom['z']))
-        f.write('{:>10.5f}{:>10.5f}{:>10.5f}\n'.format(*boxsize))
+    badsolventresidues = badsolvents.resids()
+    print('Found {} misplaced solvent molecules:'.format(len(badsolventresidues)))
+    print('  ', ', '.join('{:d}{}'.format(b, args['solventname']) for b in sorted(badsolventresidues)))
+
+    print('Original number of atoms:', len(gro))
+    print('Number of bad atoms:', len(badsolvents))
+    goodgro = gro - badsolvents
+    print('Number of atoms kept:', len(goodgro))
+    print('Number of removed {} molecules: {}'.format(args['solventname'], len(badsolventresidues)))
+    ngoodsolventresidues = len((goodgro.filter_resn(args['solventname']) - badsolvents).resids())
+    print('Remaining {} molecules: {}'.format(
+        args['solventname'], ngoodsolventresidues))
+    backoff(args['finalgro'])
+    goodgro.write(args['finalgro'])
     print('Wrote filtered structure to {}.'.format(args['finalgro']))
+    if args['topology'] is not None:
+        adjust_topology(backoff(args['topology']), args['topology'], args['solventname'], ngoodsolventresidues)
+        print('Wrote adjusted topology in {}.'.format(args['topology']))

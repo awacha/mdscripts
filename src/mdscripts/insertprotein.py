@@ -42,8 +42,8 @@ def find_lipid_indices(inputfile, lipidname):
     return indices
 
 
-def adjust_topology(topology, newtopology, lipidname, number):
-    """Adjust the topology to have the correct number of lipids"""
+def adjust_topology(topology, newtopology, moleculename, number):
+    """Adjust the topology to have the correct number of the given molecules"""
     with open(topology, 'rt', encoding='utf-8') as topin:
         with open(newtopology, 'wt', encoding='utf-8') as topout:
             molecules_seen = False
@@ -55,8 +55,8 @@ def adjust_topology(topology, newtopology, lipidname, number):
                     molecules_seen = True
                 elif re.match('\s*\[\s*', l):
                     molecules_seen = False
-                if re.match('\s*%s\s+' % lipidname, l) and molecules_seen:
-                    topout.write('{}        {:d}\n'.format(lipidname, number))
+                if re.match('\s*%s\s+' % moleculename, l) and molecules_seen:
+                    topout.write('{}        {:d}\n'.format(moleculename, number))
                 else:
                     topout.write(l)
 
