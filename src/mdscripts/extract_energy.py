@@ -46,13 +46,14 @@ class CurvesModel(QtCore.QAbstractItemModel):
     def flags(self, index: QtCore.QModelIndex):
         row = self._rows[index.row()]
         if index.column() == 0:
-            return QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemNeverHasChildren
+            return QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemNeverHasChildren | QtCore.Qt.ItemIsSelectable
         if index.column() == 1 or index.column() == 2:
-            return QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemNeverHasChildren | QtCore.Qt.ItemIsUserCheckable
+            return QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemNeverHasChildren | QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsSelectable
         if index.column() == 3:
-            return QtCore.Qt.ItemIsEditable | QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemNeverHasChildren
+            return QtCore.Qt.ItemIsEditable | QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemNeverHasChildren | QtCore.Qt.ItemIsSelectable
         else:
             return QtCore.Qt.NoItemFlags
+
 
     def index(self, row, col, parent=None):
         return self.createIndex(row, col, None)
@@ -126,7 +127,7 @@ class StatisticsModel(QtCore.QAbstractItemModel):
             return str(np.median(data))
         elif index.column() == 3:
             coeffs = np.polyfit(self.data[dataidx, 0], data, 1)
-            return str(coeffs[1])
+            return str(coeffs[0])
         elif index.column() == 4:
             return str(np.std(data))
         elif index.column() == 5:
@@ -139,7 +140,7 @@ class StatisticsModel(QtCore.QAbstractItemModel):
             return None
 
     def flags(self, index: QtCore.QModelIndex):
-        return QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemNeverHasChildren
+        return QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemNeverHasChildren | QtCore.Qt.ItemIsSelectable
 
     def index(self, row, col, parent=None):
         return self.createIndex(row, col, None)
@@ -168,6 +169,22 @@ class StatisticsModel(QtCore.QAbstractItemModel):
 
 
 class MainWindow(QtWidgets.QWidget, Ui_gmx_extract_energy):
+    windowfunctions = {'barthann': 'Bartlett-Hann',
+                       'bartlett': 'Bartlett',
+                       'blackman': 'Blackman',
+                       'blackmanharris': 'Blackman-Harris',
+                       'bohman': 'Bohman',
+                       'boxcar': 'Rectangular',
+                       'cosine': 'Cosine',
+                       'flattop': 'Flat top',
+                       'hamming': 'Hamming',
+                       'hann': 'Hann',
+                       'nuttall': 'Nuttall',
+                       'parzen': 'Parzen',
+                       'triang': 'Triangular',
+                       'tukey': 'Tukey (tapered cosine)',
+                       }
+
     def __init__(self):
         QtWidgets.QWidget.__init__(self)
         self.cursor = None
@@ -204,6 +221,13 @@ class MainWindow(QtWidgets.QWidget, Ui_gmx_extract_energy):
         Form.tminSlider.valueChanged.connect(Form.onTminSliderValueChanged)
         Form.tmaxSlider.valueChanged.connect(Form.onTmaxSliderValueChanged)
         Form.smoothingSlider.valueChanged.connect(Form.onSmoothingChanged)
+        index = 0
+        for i, w in enumerate(sorted(self.windowfunctions)):
+            Form.smoothingFunctionComboBox.addItem(self.windowfunctions[w])
+            if w == 'boxcar':
+                index = i
+        Form.smoothingFunctionComboBox.setCurrentIndex(index)
+        Form.smoothingFunctionComboBox.currentIndexChanged.connect(lambda *args: self.replot())
 
     def onSmoothingChanged(self, smoothing):
         self.replot()
@@ -276,6 +300,11 @@ class MainWindow(QtWidgets.QWidget, Ui_gmx_extract_energy):
     def curveModelDataChanged(self, idx1, idx2, roles):
         self.replot()
 
+    def smoothingWindowName(self):
+        return [k for k in self.windowfunctions
+                if self.windowfunctions[k] == self.smoothingFunctionComboBox.currentText()][0]
+
+
     def replot(self):
         smoothing = 2 * self.smoothingSlider.value() + 1
         if smoothing < 3:
@@ -289,14 +318,19 @@ class MainWindow(QtWidgets.QWidget, Ui_gmx_extract_energy):
         labels = []
         for i in range(1, len(self.labels)):
             if smoothing is not None:
-                curve = scipy.signal.savgol_filter(self.data[:, i], smoothing, 2)
+                window = scipy.signal.get_window(self.smoothingWindowName(), smoothing)
+                curve = scipy.signal.fftconvolve(self.data[:, i], window, 'valid') / window.sum()
+                # smoothing = 2*n+1. Cut n points from both the left and the right side of x.
+                n = (smoothing - 1) // 2
+                x = self.data[n:-n, 0]
             else:
                 curve = self.data[:, i]
+                x = self.data[:, 0]
             if self.curveModel.showOnLeft(i - 1):
-                lines.append(axesleft.plot(self.data[:, 0], curve, label=self.labels[i])[0])
+                lines.append(axesleft.plot(x, curve, label=self.labels[i])[0])
                 labels.append(self.labels[i])
             if self.curveModel.showOnRight(i - 1):
-                lines.append(axesright.plot(self.data[:, 0], curve, label=self.labels[i])[0])
+                lines.append(axesright.plot(x, curve, label=self.labels[i])[0])
                 labels.append(self.labels[i])
         self.figure.legend(lines, labels)
         self.figureCanvas.draw()
