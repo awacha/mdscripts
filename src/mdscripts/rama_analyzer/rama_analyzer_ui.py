@@ -8,7 +8,6 @@
 
 from PyQt5 import QtCore, QtWidgets
 
-
 class Ui_RamaAnalyzerMain(object):
     def setupUi(self, RamaAnalyzerMain):
         RamaAnalyzerMain.setObjectName("RamaAnalyzerMain")
@@ -145,10 +144,13 @@ class Ui_RamaAnalyzerMain(object):
         self.stepByStepGroupBox.setTitle(_translate("RamaAnalyzerMain", "Step-by-step view"))
         self.label.setText(_translate("RamaAnalyzerMain", "Step:"))
         self.stepLabel.setText(_translate("RamaAnalyzerMain", "N/A"))
-        self.label_2.setText(_translate("RamaAnalyzerMain", "Movie delay:"))
-        self.label_3.setText(_translate("RamaAnalyzerMain", "Skip frames:"))
+        self.label_2.setText(_translate("RamaAnalyzerMain", "Movie delay:\n"
+                                                            "                                                                                            "))
+        self.label_3.setText(_translate("RamaAnalyzerMain", "Skip frames:\n"
+                                                            "                                                                                            "))
         self.playMoviePushButton.setText(_translate("RamaAnalyzerMain", "Play"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabRamachandran),
                                   _translate("RamaAnalyzerMain", "Ramachandran plot"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.phiTab), _translate("RamaAnalyzerMain", "Phi"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.psiTab), _translate("RamaAnalyzerMain", "Psi"))
+

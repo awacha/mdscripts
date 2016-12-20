@@ -1,0 +1,45 @@
+package:
+  name: mdscripts
+  version: {{ GIT_DESCRIBE_TAG }}
+
+source:
+  git_url: ./
+
+build:
+  number: {{ GIT_DESCRIBE_NUMBER }}
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - pyqt >=5
+    - setuptools_scm
+    - matplotlib
+    - numpy
+    - scipy
+
+  run:
+    - python
+    - numpy
+    - scipy
+    - matplotlib
+    - pyqt >=5
+    - qtpy
+
+about:
+  home: https://github.com/awacha/mdscripts
+  license: 3-clause BSD license
+  dev_url: https://github.com/awacha/mdscripts.git
+  license_family: BSD
+  license_file: LICENSE
+  summary: Various scripts and GUI tools for molecular dynamics simulations
+
+app:
+  entry: gmx_extract_energy
+  summary: GROMACS Energy Analyzer
+  type: desk
+
+app:
+  entry: rama_analyzer
+  summary: GROMACS Ramachandran Plot Analyzer
+  type: desk
