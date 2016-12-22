@@ -1,3 +1,4 @@
+import argparse
 import os
 import sys
 
@@ -7,12 +8,15 @@ from .rama_analyzer import RamaAnalyzerMain
 
 
 def run():
-    app = QtWidgets.QApplication(sys.argv)
+    p = argparse.ArgumentParser(description='Analyze Ramachandran plots of Gromacs trajectories')
+    p.add_argument('-f', action='store', dest='XVGFILE', type=str, help='.xvg file produced by gmx rama',
+                   default='rama.xvg')
+    args = vars(p.parse_args())
+    app = QtWidgets.QApplication([])
     mainwin = RamaAnalyzerMain()
-    if len(sys.argv) > 1:
-        filename = os.path.expanduser(sys.argv[1])
-        if os.path.exists(filename):
-            mainwin.load(filename)
+    filename = os.path.expanduser(args['XVGFILE'])
+    if os.path.exists(filename):
+        mainwin.load(filename)
     mainwin.show()
     sys.exit(app.exec_())
 

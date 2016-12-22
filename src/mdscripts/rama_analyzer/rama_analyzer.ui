@@ -6,7 +6,7 @@
             <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>594</width>
+                <width>1049</width>
                 <height>451</height>
             </rect>
         </property>
@@ -20,6 +20,12 @@
                         <enum>Qt::Horizontal</enum>
                     </property>
                     <widget class="QWidget" name="widget" native="true">
+                        <property name="sizePolicy">
+                            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                            </sizepolicy>
+                        </property>
                         <layout class="QVBoxLayout" name="verticalLayout_2">
                             <item>
                                 <widget class="QFrame" name="frame">
@@ -51,7 +57,14 @@
                                 </widget>
                             </item>
                             <item>
-                                <widget class="QListView" name="residuesListView"/>
+                                <widget class="QTreeView" name="residuesListView"/>
+                            </item>
+                            <item>
+                                <widget class="QPushButton" name="hideAllPushButton">
+                                    <property name="text">
+                                        <string>Hide all</string>
+                                    </property>
+                                </widget>
                             </item>
                             <item>
                                 <spacer name="verticalSpacer">
@@ -61,7 +74,7 @@
                                     <property name="sizeHint" stdset="0">
                                         <size>
                                             <width>20</width>
-                                            <height>40</height>
+                                            <height>0</height>
                                         </size>
                                     </property>
                                 </spacer>
@@ -92,7 +105,7 @@
                                                                     <bool>true</bool>
                                                                 </property>
                                                                 <property name="checked">
-                                                                    <bool>true</bool>
+                                                                    <bool>false</bool>
                                                                 </property>
                                                                 <layout class="QVBoxLayout" name="verticalLayout_6">
                                                                     <item>
@@ -134,23 +147,40 @@
                                                                             </layout>
                                                                         </widget>
                                                                     </item>
-                                                                    <item>
+                                                                    <item alignment="Qt::AlignVCenter">
                                                                         <widget class="QWidget" name="widget_4"
                                                                                 native="true">
+                                                                            <property name="sizePolicy">
+                                                                                <sizepolicy hsizetype="Minimum"
+                                                                                            vsizetype="Preferred">
+                                                                                    <horstretch>0</horstretch>
+                                                                                    <verstretch>0</verstretch>
+                                                                                </sizepolicy>
+                                                                            </property>
                                                                             <layout class="QHBoxLayout"
                                                                                     name="horizontalLayout_2">
                                                                                 <item>
                                                                                     <widget class="QLabel"
                                                                                             name="label_2">
                                                                                         <property name="text">
-                                                                                            <string>Movie delay:
-                                                                                            </string>
+                                                                                            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Movie
+                                                                                                delay:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                                                                                         </property>
                                                                                     </widget>
                                                                                 </item>
                                                                                 <item>
                                                                                     <widget class="QDoubleSpinBox"
                                                                                             name="movieDelaySpinBox">
+                                                                                        <property name="sizePolicy">
+                                                                                            <sizepolicy
+                                                                                                    hsizetype="Expanding"
+                                                                                                    vsizetype="Fixed">
+                                                                                                <horstretch>0
+                                                                                                </horstretch>
+                                                                                                <verstretch>0
+                                                                                                </verstretch>
+                                                                                            </sizepolicy>
+                                                                                        </property>
                                                                                         <property name="value">
                                                                                             <double>0.000000000000000
                                                                                             </double>
@@ -160,6 +190,16 @@
                                                                                 <item>
                                                                                     <widget class="QLabel"
                                                                                             name="label_3">
+                                                                                        <property name="sizePolicy">
+                                                                                            <sizepolicy
+                                                                                                    hsizetype="Preferred"
+                                                                                                    vsizetype="Preferred">
+                                                                                                <horstretch>0
+                                                                                                </horstretch>
+                                                                                                <verstretch>0
+                                                                                                </verstretch>
+                                                                                            </sizepolicy>
+                                                                                        </property>
                                                                                         <property name="text">
                                                                                             <string>Skip frames:
                                                                                             </string>
@@ -168,7 +208,18 @@
                                                                                 </item>
                                                                                 <item>
                                                                                     <widget class="QSpinBox"
-                                                                                            name="skipFramesSpinBox"/>
+                                                                                            name="skipFramesSpinBox">
+                                                                                        <property name="sizePolicy">
+                                                                                            <sizepolicy
+                                                                                                    hsizetype="Expanding"
+                                                                                                    vsizetype="Fixed">
+                                                                                                <horstretch>0
+                                                                                                </horstretch>
+                                                                                                <verstretch>0
+                                                                                                </verstretch>
+                                                                                            </sizepolicy>
+                                                                                        </property>
+                                                                                    </widget>
                                                                                 </item>
                                                                                 <item>
                                                                                     <widget class="QPushButton"

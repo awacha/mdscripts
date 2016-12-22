@@ -192,3 +192,4 @@ class Ui_gmx_extract_energy(object):
         self.toolButtonGoLast.setText(_translate("gmx_extract_energy", "..."))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("gmx_extract_energy", "Graph"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("gmx_extract_energy", "Statistics"))
+

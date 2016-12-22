@@ -39,6 +39,6 @@ app:
   type: desk
 
 app:
-  entry: rama_analyzer
+  entry: gmx_rama_analyzer
   summary: GROMACS Ramachandran Plot Analyzer
   type: desk
