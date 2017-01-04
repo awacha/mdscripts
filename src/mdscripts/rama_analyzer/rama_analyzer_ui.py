@@ -49,8 +49,6 @@ class Ui_RamaAnalyzerMain(object):
         self.hideAllPushButton = QtWidgets.QPushButton(self.widget)
         self.hideAllPushButton.setObjectName("hideAllPushButton")
         self.verticalLayout_2.addWidget(self.hideAllPushButton)
-        spacerItem = QtWidgets.QSpacerItem(20, 0, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout_2.addItem(spacerItem)
         self.tabWidget = QtWidgets.QTabWidget(self.splitter)
         self.tabWidget.setObjectName("tabWidget")
         self.tabRamachandran = QtWidgets.QWidget()
