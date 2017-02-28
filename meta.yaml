@@ -25,6 +25,7 @@ requirements:
     - matplotlib
     - pyqt >=5
     - setuptools_scm
+    - graphviz
 
 about:
   home: https://github.com/awacha/mdscripts
@@ -42,4 +43,9 @@ app:
 app:
   entry: gmx_rama_analyzer
   summary: GROMACS Ramachandran Plot Analyzer
+  type: desk
+
+app:
+  entry: gmx_rtp_browser
+  summary: GROMACS RTP Browser
   type: desk
