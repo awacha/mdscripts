@@ -7,6 +7,7 @@ source:
 
 build:
   number: {{ GIT_DESCRIBE_NUMBER }}
+  noarch_python: True
 
 requirements:
   build:
@@ -17,6 +18,7 @@ requirements:
     - matplotlib
     - numpy
     - scipy
+    - python-graphviz
 
   run:
     - python
