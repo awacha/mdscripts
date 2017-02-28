@@ -25,7 +25,7 @@ requirements:
     - matplotlib
     - pyqt >=5
     - setuptools_scm
-    - graphviz
+    - python-graphviz
 
 about:
   home: https://github.com/awacha/mdscripts
