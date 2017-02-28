@@ -1,279 +1,253 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
-    <class>RamaAnalyzerMain</class>
-    <widget class="QWidget" name="RamaAnalyzerMain">
-        <property name="geometry">
-            <rect>
-                <x>0</x>
-                <y>0</y>
-                <width>1049</width>
-                <height>451</height>
-            </rect>
-        </property>
-        <property name="windowTitle">
-            <string>Ramachandran Plot Analyzer</string>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout">
-            <item>
-                <widget class="QSplitter" name="splitter">
-                    <property name="orientation">
-                        <enum>Qt::Horizontal</enum>
-                    </property>
-                    <widget class="QWidget" name="widget" native="true">
-                        <property name="sizePolicy">
-                            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-                                <horstretch>0</horstretch>
-                                <verstretch>0</verstretch>
-                            </sizepolicy>
-                        </property>
-                        <layout class="QVBoxLayout" name="verticalLayout_2">
-                            <item>
-                                <widget class="QFrame" name="frame">
-                                    <property name="frameShape">
-                                        <enum>QFrame::StyledPanel</enum>
-                                    </property>
-                                    <property name="frameShadow">
-                                        <enum>QFrame::Raised</enum>
-                                    </property>
-                                    <layout class="QGridLayout" name="gridLayout">
-                                        <item row="0" column="0">
-                                            <widget class="QLineEdit" name="filenameLineEdit"/>
-                                        </item>
-                                        <item row="0" column="1">
-                                            <widget class="QPushButton" name="browsePushButton">
-                                                <property name="text">
-                                                    <string>Browse</string>
-                                                </property>
-                                            </widget>
-                                        </item>
-                                        <item row="1" column="0" colspan="2">
-                                            <widget class="QPushButton" name="reloadPushButton">
-                                                <property name="text">
-                                                    <string>(Re)load</string>
-                                                </property>
-                                            </widget>
-                                        </item>
-                                    </layout>
-                                </widget>
-                            </item>
-                            <item>
-                                <widget class="QTreeView" name="residuesListView"/>
-                            </item>
-                            <item>
-                                <widget class="QPushButton" name="hideAllPushButton">
-                                    <property name="text">
-                                        <string>Hide all</string>
-                                    </property>
-                                </widget>
-                            </item>
-                        </layout>
-                    </widget>
-                    <widget class="QTabWidget" name="tabWidget">
-                        <property name="currentIndex">
-                            <number>0</number>
-                        </property>
-                        <widget class="QWidget" name="tabRamachandran">
-                            <attribute name="title">
-                                <string>Ramachandran plot</string>
-                            </attribute>
-                            <layout class="QVBoxLayout" name="verticalLayout_7">
-                                <item>
-                                    <widget class="QWidget" name="rightWidget" native="true">
-                                        <layout class="QVBoxLayout" name="verticalLayout_4">
-                                            <item>
-                                                <widget class="QWidget" name="widget_2" native="true">
-                                                    <layout class="QVBoxLayout" name="verticalLayout_3">
-                                                        <item>
-                                                            <widget class="QGroupBox" name="stepByStepGroupBox">
-                                                                <property name="title">
-                                                                    <string>Step-by-step view</string>
-                                                                </property>
-                                                                <property name="checkable">
-                                                                    <bool>true</bool>
-                                                                </property>
-                                                                <property name="checked">
-                                                                    <bool>false</bool>
-                                                                </property>
-                                                                <layout class="QVBoxLayout" name="verticalLayout_6">
-                                                                    <item>
-                                                                        <widget class="QWidget" name="widget_3"
-                                                                                native="true">
-                                                                            <layout class="QHBoxLayout"
-                                                                                    name="horizontalLayout">
-                                                                                <item>
-                                                                                    <widget class="QLabel" name="label">
-                                                                                        <property name="text">
-                                                                                            <string>Step:</string>
-                                                                                        </property>
-                                                                                    </widget>
-                                                                                </item>
-                                                                                <item>
-                                                                                    <widget class="QSlider"
-                                                                                            name="stepSlider">
-                                                                                        <property name="orientation">
-                                                                                            <enum>Qt::Horizontal</enum>
-                                                                                        </property>
-                                                                                        <property
-                                                                                                name="invertedControls">
-                                                                                            <bool>false</bool>
-                                                                                        </property>
-                                                                                        <property name="tickPosition">
-                                                                                            <enum>QSlider::NoTicks
-                                                                                            </enum>
-                                                                                        </property>
-                                                                                    </widget>
-                                                                                </item>
-                                                                                <item>
-                                                                                    <widget class="QLabel"
-                                                                                            name="stepLabel">
-                                                                                        <property name="text">
-                                                                                            <string>N/A</string>
-                                                                                        </property>
-                                                                                    </widget>
-                                                                                </item>
-                                                                            </layout>
-                                                                        </widget>
-                                                                    </item>
-                                                                    <item alignment="Qt::AlignVCenter">
-                                                                        <widget class="QWidget" name="widget_4"
-                                                                                native="true">
-                                                                            <property name="sizePolicy">
-                                                                                <sizepolicy hsizetype="Minimum"
-                                                                                            vsizetype="Preferred">
-                                                                                    <horstretch>0</horstretch>
-                                                                                    <verstretch>0</verstretch>
-                                                                                </sizepolicy>
-                                                                            </property>
-                                                                            <layout class="QHBoxLayout"
-                                                                                    name="horizontalLayout_2">
-                                                                                <item>
-                                                                                    <widget class="QLabel"
-                                                                                            name="label_2">
-                                                                                        <property name="text">
-                                                                                            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Movie
+ <class>RamaAnalyzerMain</class>
+ <widget class="QWidget" name="RamaAnalyzerMain">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1049</width>
+    <height>451</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Ramachandran Plot Analyzer</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QSplitter" name="splitter">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <widget class="QWidget" name="widget" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QFrame" name="frame">
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout">
+          <item row="0" column="0">
+           <widget class="QLineEdit" name="filenameLineEdit"/>
+          </item>
+          <item row="0" column="1">
+           <widget class="QPushButton" name="browsePushButton">
+            <property name="text">
+             <string>Browse</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0" colspan="2">
+           <widget class="QPushButton" name="reloadPushButton">
+            <property name="text">
+             <string>(Re)load</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QTreeView" name="residuesListView"/>
+       </item>
+       <item>
+        <widget class="QPushButton" name="hideAllPushButton">
+         <property name="text">
+          <string>Hide all</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tabRamachandran">
+       <attribute name="title">
+        <string>Ramachandran plot</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_7">
+        <item>
+         <widget class="QWidget" name="rightWidget" native="true">
+          <layout class="QVBoxLayout" name="verticalLayout_4">
+           <item>
+            <widget class="QWidget" name="widget_2" native="true">
+             <layout class="QVBoxLayout" name="verticalLayout_3">
+              <item>
+               <widget class="QGroupBox" name="stepByStepGroupBox">
+                <property name="title">
+                 <string>Step-by-step view</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_6">
+                 <item>
+                  <widget class="QWidget" name="widget_3" native="true">
+                   <layout class="QHBoxLayout" name="horizontalLayout">
+                    <item>
+                     <widget class="QLabel" name="label">
+                      <property name="text">
+                       <string>Step:</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QSlider" name="stepSlider">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="invertedControls">
+                       <bool>false</bool>
+                      </property>
+                      <property name="tickPosition">
+                       <enum>QSlider::NoTicks</enum>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="stepLabel">
+                      <property name="text">
+                       <string>N/A</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item alignment="Qt::AlignVCenter">
+                  <widget class="QWidget" name="widget_4" native="true">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <layout class="QHBoxLayout" name="horizontalLayout_2">
+                    <item>
+                     <widget class="QLabel" name="label_2">
+                      <property name="text">
+                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Movie
                                                                                                 delay:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                                                                                        </property>
-                                                                                    </widget>
-                                                                                </item>
-                                                                                <item>
-                                                                                    <widget class="QDoubleSpinBox"
-                                                                                            name="movieDelaySpinBox">
-                                                                                        <property name="sizePolicy">
-                                                                                            <sizepolicy
-                                                                                                    hsizetype="Expanding"
-                                                                                                    vsizetype="Fixed">
-                                                                                                <horstretch>0
-                                                                                                </horstretch>
-                                                                                                <verstretch>0
-                                                                                                </verstretch>
-                                                                                            </sizepolicy>
-                                                                                        </property>
-                                                                                        <property name="value">
-                                                                                            <double>0.000000000000000
-                                                                                            </double>
-                                                                                        </property>
-                                                                                    </widget>
-                                                                                </item>
-                                                                                <item>
-                                                                                    <widget class="QLabel"
-                                                                                            name="label_3">
-                                                                                        <property name="sizePolicy">
-                                                                                            <sizepolicy
-                                                                                                    hsizetype="Preferred"
-                                                                                                    vsizetype="Preferred">
-                                                                                                <horstretch>0
-                                                                                                </horstretch>
-                                                                                                <verstretch>0
-                                                                                                </verstretch>
-                                                                                            </sizepolicy>
-                                                                                        </property>
-                                                                                        <property name="text">
-                                                                                            <string>Skip frames:
-                                                                                            </string>
-                                                                                        </property>
-                                                                                    </widget>
-                                                                                </item>
-                                                                                <item>
-                                                                                    <widget class="QSpinBox"
-                                                                                            name="skipFramesSpinBox">
-                                                                                        <property name="sizePolicy">
-                                                                                            <sizepolicy
-                                                                                                    hsizetype="Expanding"
-                                                                                                    vsizetype="Fixed">
-                                                                                                <horstretch>0
-                                                                                                </horstretch>
-                                                                                                <verstretch>0
-                                                                                                </verstretch>
-                                                                                            </sizepolicy>
-                                                                                        </property>
-                                                                                    </widget>
-                                                                                </item>
-                                                                                <item>
-                                                                                    <widget class="QPushButton"
-                                                                                            name="playMoviePushButton">
-                                                                                        <property name="text">
-                                                                                            <string>Play</string>
-                                                                                        </property>
-                                                                                    </widget>
-                                                                                </item>
-                                                                                <item>
-                                                                                    <spacer name="horizontalSpacer">
-                                                                                        <property name="orientation">
-                                                                                            <enum>Qt::Horizontal</enum>
-                                                                                        </property>
-                                                                                        <property name="sizeHint"
-                                                                                                  stdset="0">
-                                                                                            <size>
-                                                                                                <width>0</width>
-                                                                                                <height>0</height>
-                                                                                            </size>
-                                                                                        </property>
-                                                                                    </spacer>
-                                                                                </item>
-                                                                            </layout>
-                                                                        </widget>
-                                                                    </item>
-                                                                </layout>
-                                                            </widget>
-                                                        </item>
-                                                    </layout>
-                                                </widget>
-                                            </item>
-                                            <item>
-                                                <widget class="QWidget" name="figureWidget" native="true">
-                                                    <property name="sizePolicy">
-                                                        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                                                            <horstretch>0</horstretch>
-                                                            <verstretch>0</verstretch>
-                                                        </sizepolicy>
-                                                    </property>
-                                                    <layout class="QVBoxLayout" name="verticalLayout_5">
-                                                        <item>
-                                                            <layout class="QVBoxLayout" name="figureVerticalLayout"/>
-                                                        </item>
-                                                    </layout>
-                                                </widget>
-                                            </item>
-                                        </layout>
-                                    </widget>
-                                </item>
-                            </layout>
-                        </widget>
-                        <widget class="QWidget" name="phiTab">
-                            <attribute name="title">
-                                <string>Phi</string>
-                            </attribute>
-                        </widget>
-                        <widget class="QWidget" name="psiTab">
-                            <attribute name="title">
-                                <string>Psi</string>
-                            </attribute>
-                        </widget>
-                    </widget>
-                </widget>
-            </item>
-        </layout>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QDoubleSpinBox" name="movieDelaySpinBox">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="value">
+                       <double>0.000000000000000</double>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_3">
+                      <property name="enabled">
+                       <bool>true</bool>
+                      </property>
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="text">
+                       <string>Skip frames:</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QSpinBox" name="skipFramesSpinBox">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="playMoviePushButton">
+                      <property name="text">
+                       <string>Play</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <spacer name="horizontalSpacer">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>0</width>
+                        <height>0</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QWidget" name="figureWidget" native="true">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_5">
+              <item>
+               <layout class="QVBoxLayout" name="figureVerticalLayout"/>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="phiTab">
+       <attribute name="title">
+        <string>Phi</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="psiTab">
+       <attribute name="title">
+        <string>Psi</string>
+       </attribute>
+      </widget>
+     </widget>
     </widget>
-    <resources/>
-    <connections/>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
 </ui>
