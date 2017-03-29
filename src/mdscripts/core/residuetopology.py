@@ -1,5 +1,5 @@
 class ResidueTopology(object):
-    def ___init__(self):
+    def __init__(self):
         self.name= ''
         self.atoms = []
         self.bonds = []
@@ -14,6 +14,8 @@ class ResidueTopology(object):
         mode = None
         with open(filename, 'rt', encoding='utf-8') as f:
             for line in f:
+                if line.strip().startswith(';'):
+                    continue
                 if line.strip().startswith('['):
                     caption = line.replace('[', '').replace(']', '').strip()
                     if caption == 'bondedtypes':

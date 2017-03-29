@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>501</width>
+    <height>606</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -37,16 +37,6 @@
         </property>
        </widget>
       </item>
-      <item row="4" column="1">
-       <widget class="QSpinBox" name="fontSizeSpinBox">
-        <property name="maximum">
-         <number>1000</number>
-        </property>
-        <property name="value">
-         <number>64</number>
-        </property>
-       </widget>
-      </item>
       <item row="0" column="2">
        <widget class="QPushButton" name="browsePushButton">
         <property name="text">
@@ -57,14 +47,14 @@
       <item row="4" column="0">
        <widget class="QLabel" name="label_4">
         <property name="text">
-         <string>Font size:</string>
+         <string>Optimal distance:</string>
         </property>
        </widget>
       </item>
       <item row="3" column="0">
        <widget class="QLabel" name="label_3">
         <property name="text">
-         <string>GraphViz engine:</string>
+         <string>Layout scale:</string>
         </property>
        </widget>
       </item>
@@ -73,48 +63,6 @@
         <property name="readOnly">
          <bool>true</bool>
         </property>
-       </widget>
-      </item>
-      <item row="3" column="1">
-       <widget class="QComboBox" name="engineComboBox">
-        <property name="currentIndex">
-         <number>1</number>
-        </property>
-        <item>
-         <property name="text">
-          <string>dot</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>neato</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>twopi</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>circo</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>fdp</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>sfdp</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>patchwork</string>
-         </property>
-        </item>
        </widget>
       </item>
       <item row="1" column="1">
@@ -156,6 +104,38 @@
           <string>Charge group</string>
          </property>
         </item>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QDoubleSpinBox" name="scaleDoubleSpinBox">
+        <property name="decimals">
+         <number>4</number>
+        </property>
+        <property name="minimum">
+         <double>0.000100000000000</double>
+        </property>
+        <property name="maximum">
+         <double>100000.000000000000000</double>
+        </property>
+        <property name="value">
+         <double>1.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QDoubleSpinBox" name="optDistanceDoubleSpinBox">
+        <property name="decimals">
+         <number>4</number>
+        </property>
+        <property name="minimum">
+         <double>0.000100000000000</double>
+        </property>
+        <property name="maximum">
+         <double>100000.000000000000000</double>
+        </property>
+        <property name="value">
+         <double>0.100000000000000</double>
+        </property>
        </widget>
       </item>
      </layout>
