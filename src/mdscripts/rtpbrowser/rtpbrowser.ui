@@ -1,98 +1,168 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
-    <class>Form</class>
-    <widget class="QWidget" name="Form">
-        <property name="geometry">
-            <rect>
-                <x>0</x>
-                <y>0</y>
-                <width>400</width>
-                <height>300</height>
-            </rect>
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Residue browser</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QWidget" name="widget" native="true">
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Residue:</string>
         </property>
-        <property name="windowTitle">
-            <string>Residue browser</string>
+       </widget>
+      </item>
+      <item row="1" column="2" rowspan="4">
+       <widget class="QPushButton" name="plotPushButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
         </property>
-        <layout class="QVBoxLayout" name="verticalLayout">
-            <item>
-                <widget class="QWidget" name="widget" native="true">
-                    <layout class="QGridLayout" name="gridLayout">
-                        <item row="2" column="0">
-                            <widget class="QLabel" name="label_3">
-                                <property name="text">
-                                    <string>GraphViz engine:</string>
-                                </property>
-                            </widget>
-                        </item>
-                        <item row="1" column="0">
-                            <widget class="QLabel" name="label_2">
-                                <property name="text">
-                                    <string>Residue:</string>
-                                </property>
-                            </widget>
-                        </item>
-                        <item row="2" column="1">
-                            <widget class="QComboBox" name="engineComboBox"/>
-                        </item>
-                        <item row="1" column="1">
-                            <widget class="QComboBox" name="residueComboBox"/>
-                        </item>
-                        <item row="0" column="1">
-                            <widget class="QLineEdit" name="filenameLineEdit">
-                                <property name="readOnly">
-                                    <bool>true</bool>
-                                </property>
-                            </widget>
-                        </item>
-                        <item row="0" column="2">
-                            <widget class="QPushButton" name="browsePushButton">
-                                <property name="text">
-                                    <string>Browse...</string>
-                                </property>
-                            </widget>
-                        </item>
-                        <item row="0" column="0">
-                            <widget class="QLabel" name="label">
-                                <property name="text">
-                                    <string>File name:</string>
-                                </property>
-                            </widget>
-                        </item>
-                        <item row="3" column="0">
-                            <widget class="QLabel" name="label_4">
-                                <property name="text">
-                                    <string>Font size:</string>
-                                </property>
-                            </widget>
-                        </item>
-                        <item row="3" column="1">
-                            <widget class="QSpinBox" name="fontSizeSpinBox">
-                                <property name="maximum">
-                                    <number>1000</number>
-                                </property>
-                                <property name="value">
-                                    <number>64</number>
-                                </property>
-                            </widget>
-                        </item>
-                        <item row="1" column="2" rowspan="3">
-                            <widget class="QPushButton" name="plotPushButton">
-                                <property name="sizePolicy">
-                                    <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                                        <horstretch>0</horstretch>
-                                        <verstretch>0</verstretch>
-                                    </sizepolicy>
-                                </property>
-                                <property name="text">
-                                    <string>Plot</string>
-                                </property>
-                            </widget>
-                        </item>
-                    </layout>
-                </widget>
-            </item>
-        </layout>
+        <property name="text">
+         <string>Plot</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QSpinBox" name="fontSizeSpinBox">
+        <property name="maximum">
+         <number>1000</number>
+        </property>
+        <property name="value">
+         <number>64</number>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QPushButton" name="browsePushButton">
+        <property name="text">
+         <string>Browse...</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string>Font size:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>GraphViz engine:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="filenameLineEdit">
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QComboBox" name="engineComboBox">
+        <property name="currentIndex">
+         <number>1</number>
+        </property>
+        <item>
+         <property name="text">
+          <string>dot</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>neato</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>twopi</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>circo</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>fdp</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>sfdp</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>patchwork</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QComboBox" name="residueComboBox"/>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>File name:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string>Label:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QComboBox" name="labelComboBox">
+        <item>
+         <property name="text">
+          <string>Name</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Atom type</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Partial charge</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Charge group</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+     </layout>
     </widget>
-    <resources/>
-    <connections/>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
 </ui>
