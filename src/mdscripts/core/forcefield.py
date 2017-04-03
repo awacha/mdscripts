@@ -80,21 +80,17 @@ class ForceField(object):
                     at1, at2, func, sigma, epsilon = l.split()
                     self.pairtypes.append((at1, at2, int(func), float(sigma), float(epsilon)))
                 elif mode == 'bondtypes':
-                    at1, at2, func, b0, kb = l.split()
-                    self.bondtypes.append((at1, at2, int(func), float(b0), float(kb)))
+                    lis=l.split()
+                    self.bondtypes.append((lis[0], lis[1], int(lis[2]))+tuple(float(x) for x in lis[3:]))
                 elif mode == 'constrainttypes':
                     at1, at2, func, value = l.split()
                     self.constrainttypes.append((at1, at2, int(func), float(value)))
                 elif mode == 'angletypes':
-                    at1, at2, at3, func, theta0, ktheta, ub0, kub = l.split()
-                    self.angletypes.append((at1, at2, at3, int(func), float(theta0), float(ktheta), float(ub0), float(kub)))
+                    lis = l.split()
+                    self.angletypes.append(tuple(lis[:3])+(int(lis[3]),) + tuple([float(x) for x in lis[4:]]))
                 elif mode == 'dihedraltypes':
-                    try:
-                        at1, at2, at3, at4, func, phi0, kphi, mult = l.split()
-                    except ValueError:
-                        mult = 1
-                        at1, at2, at3, at4, func, phi0, kphi = l.split()
-                    self.dihedraltypes.append((at1,at2,at3,at4,int(func), float(phi0), float(kphi), int(mult)))
+                    lis = l.split()
+                    self.dihedraltypes.append(tuple(lis[:4])+(int(lis[4]),)+tuple([float(x) for x in lis[5:]]))
                 elif mode == 'implicit_genborn_params':
                     at, sar, st, pi, gbr, hct = l.split()
                     self.implicit_genborn_params.append((at, float(sar), float(st), float(pi), float(gbr), float(hct)))
@@ -108,6 +104,9 @@ class ForceField(object):
                 else:
                     print('Unknown mode: {}'.format(mode))
         return mode, defs, ifdefs
+
+    def get_atomtype(self, at1):
+        return [a for a in self.atomtypes if a[0] == at1]
 
     def get_bond(self, at1, at2):
         return [b for b in self.bondtypes if (b[0]==at1 and b[1]==at2) or (b[1] == at1 and b[0] == at2)]
@@ -125,3 +124,37 @@ class ForceField(object):
 
     def get_nonbond_param(self, at1, at2):
         return [p for p in self.nonbond_params if (p[0]==at1 and p[1]==at2) or (p[0]==at2 and p[1]==at1) ]
+
+    def new_atomtype(self, newname, basedon):
+        """Create a new atom type by copying another."""
+        def replaceif(newname, basedon, tup, length):
+            if length > 0:
+                for t in replaceif(newname, basedon, tup[1:], length-1):
+                    if tup[0] == basedon:
+                        yield (newname,) + t
+                    yield (tup[0],) +t
+            else:
+                yield tup
+            return
+        for length, attr in [(1, 'atomtypes'),
+                             (2, 'bondtypes'),
+                             (3, 'angletypes'),
+                             (4, 'dihedraltypes'),
+                             (2, 'constrainttypes'),
+                             (2, 'pairtypes'),
+                             (1, 'implicit_genborn_params'),
+                             (5, 'cmaptypes'),
+                             (2, 'nonbond_params')]:
+            lis = getattr(self, attr)
+            newlis = []
+            for row in lis:
+                newlis.extend(list(replaceif(newname, basedon, row, length)))
+            setattr(self, attr, newlis)
+
+    def write_forcefield(self):
+
+        self.atomtypes = sorted(self.atomtypes, key=lambda at:at[0])
+        self.bondtypes = sorted(self.bondtypes, key=lambda bt:bt[:2])
+        self.angletypes = sorted()
+
+
