@@ -19,6 +19,7 @@ requirements:
     - numpy
     - scipy
     - python-graphviz
+    - networkx
 
   run:
     - python
@@ -28,6 +29,7 @@ requirements:
     - pyqt >=5
     - setuptools_scm
     - python-graphviz
+    - networkx
 
 about:
   home: https://github.com/awacha/mdscripts

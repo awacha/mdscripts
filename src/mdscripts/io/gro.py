@@ -109,8 +109,6 @@ class GROFile(object):
     def vy(self):
         return self.grodata['vy']
 
-    exit
-
     def vz(self):
         return self.grodata['vz']
 
