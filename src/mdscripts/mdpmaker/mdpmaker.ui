@@ -1,0 +1,1565 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Wizard</class>
+ <widget class="QWizard" name="Wizard">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>650</width>
+    <height>515</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Wizard</string>
+  </property>
+  <property name="sizeGripEnabled">
+   <bool>true</bool>
+  </property>
+  <property name="wizardStyle">
+   <enum>QWizard::ClassicStyle</enum>
+  </property>
+  <property name="options">
+   <set>QWizard::HaveCustomButton1|QWizard::NoBackButtonOnStartPage</set>
+  </property>
+  <widget class="WPIntro" name="introWizardPage">
+   <property name="title">
+    <string>Welcome</string>
+   </property>
+   <attribute name="pageId">
+    <string notr="true">welcomepage</string>
+   </attribute>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;With this wizard you can construct an MDP file for GROMACS.&lt;/p&gt;&lt;p&gt;Please note that:&lt;/p&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;This is not (and is not meant to be) a generally applicable tool, i.e. not all possible MDP options are exposed. If you consider doing anything special (which you might certainly do), you must edit the resulting MDP file to your needs.&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;This is only an aid for constructing the files. You should have a deep understanding of MD simulations and GROMACS, in particular. All the responsibility is yours, therefore you must check the resulting MDP file for correctness. The author should not be held liable for incorrect simulation results!&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;If you are in doubt of a setting, please check the official GROMACS documentation at &lt;a href=&quot;https://manual.gromacs.org/documentation/current/user-guide/mdp-options.html&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#2980b9;&quot;&gt;https://manual.gromacs.org/documentation/current/user-guide/mdp-options.html&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QCheckBox" name="consentCheckBox">
+      <property name="text">
+       <string>I'm aware of my responsibilities</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="WPIntro" name="simTypeWizardPage">
+   <property name="title">
+    <string>Type of the simulation</string>
+   </property>
+   <property name="subTitle">
+    <string>Select the type of simulation</string>
+   </property>
+   <attribute name="pageId">
+    <string notr="true">typeselectionpage</string>
+   </attribute>
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <widget class="QRadioButton" name="typeEnergyMinimizationRadioButton">
+      <property name="text">
+       <string>Energ&amp;y minimization</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QRadioButton" name="typeNVTRadioButton">
+      <property name="text">
+       <string>NV&amp;T ensemble</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QRadioButton" name="typeNPTRadioButton">
+      <property name="text">
+       <string>N&amp;PT ensemble</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QLabel" name="label_8">
+        <property name="text">
+         <string>Time unit (for display only):</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="timeUnitComboBox">
+        <item>
+         <property name="text">
+          <string>fs</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ps</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ns</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ps</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWizardPage" name="emWizardPage">
+   <property name="title">
+    <string>Energy minimization parameters</string>
+   </property>
+   <property name="subTitle">
+    <string>Adjust the parameters for energy minimization</string>
+   </property>
+   <attribute name="pageId">
+    <string notr="true">eminwizardpage</string>
+   </attribute>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>Integrator:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_5">
+      <property name="text">
+       <string>Frequency of performing 1 steepest descent step [steps]:</string>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QSpinBox" name="emnstcgsteepSpinBox">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+        <horstretch>1</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimum">
+       <number>0</number>
+      </property>
+      <property name="maximum">
+       <number>999999</number>
+      </property>
+      <property name="value">
+       <number>1000</number>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QDoubleSpinBox" name="emToleranceDoubleSpinBox">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+        <horstretch>1</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="decimals">
+       <number>4</number>
+      </property>
+      <property name="maximum">
+       <double>999.000000000000000</double>
+      </property>
+      <property name="value">
+       <double>10.000000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_4">
+      <property name="text">
+       <string>Initial step size [nm]:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QComboBox" name="emIntegratorComboBox">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+        <horstretch>1</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <item>
+       <property name="text">
+        <string>steep</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>cg</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>l-bfgs</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_3">
+      <property name="text">
+       <string>Tolerance for convergence [kJ/mol/nm]:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="label_6">
+      <property name="text">
+       <string>Number of l-BFGS correction steps [steps]:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1">
+     <widget class="QSpinBox" name="emnbfgscorrSpinBox">
+      <property name="maximum">
+       <number>9999999</number>
+      </property>
+      <property name="value">
+       <number>10</number>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QDoubleSpinBox" name="emInitialStepSizeDoubleSpinBox">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+        <horstretch>1</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="decimals">
+       <number>4</number>
+      </property>
+      <property name="value">
+       <double>0.010000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="1">
+     <widget class="QSpinBox" name="emNstepsSpinBox">
+      <property name="specialValueText">
+       <string>Infinite</string>
+      </property>
+      <property name="minimum">
+       <number>-1</number>
+      </property>
+      <property name="maximum">
+       <number>999999999</number>
+      </property>
+      <property name="value">
+       <number>0</number>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0">
+     <widget class="QLabel" name="label_7">
+      <property name="text">
+       <string>Maximum number of steps [steps]:</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWizardPage" name="integratorWizardPage">
+   <property name="title">
+    <string>MD integrator parameters</string>
+   </property>
+   <property name="subTitle">
+    <string>Choose the main parameters for the molecular dynamics simulations</string>
+   </property>
+   <attribute name="pageId">
+    <string notr="true">mdwizardpage</string>
+   </attribute>
+   <layout class="QGridLayout" name="gridLayout_2">
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_10">
+      <property name="text">
+       <string>Number of steps:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QSpinBox" name="nstepsSpinBox">
+      <property name="maximum">
+       <number>999999999</number>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_9">
+      <property name="text">
+       <string>Time step:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1">
+     <widget class="QSpinBox" name="nstcommSpinBox">
+      <property name="maximum">
+       <number>999999999</number>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="1">
+     <widget class="QLineEdit" name="commGrpsLineEdit"/>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="label_12">
+      <property name="text">
+       <string>Frequency for COMM removal [steps]:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0">
+     <widget class="QLabel" name="label_13">
+      <property name="text">
+       <string>COMM groups [space separated list]:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QDoubleSpinBox" name="timeStepDoubleSpinBox">
+      <property name="decimals">
+       <number>10</number>
+      </property>
+      <property name="maximum">
+       <double>99999999.000000000000000</double>
+      </property>
+      <property name="value">
+       <double>0.002000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QComboBox" name="commTypeComboBox">
+      <item>
+       <property name="text">
+        <string>Linear</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Angular</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Linear-acceleration-correction</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>None</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_11">
+      <property name="text">
+       <string>Center of mass motion (COMM) removal:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="2">
+     <widget class="QLabel" name="nstepsTimeLabel">
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="2">
+     <widget class="QLabel" name="nstcommTimeLabel">
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWizardPage" name="outputWizardPage">
+   <property name="title">
+    <string>Output control</string>
+   </property>
+   <property name="subTitle">
+    <string>Output / calculation frequencies</string>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_3">
+    <item row="7" column="1">
+     <widget class="QDoubleSpinBox" name="compressed_x_precisionDoubleSpinBox">
+      <property name="maximum">
+       <double>9999999.000000000000000</double>
+      </property>
+      <property name="value">
+       <double>1000.000000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="label_20">
+      <property name="text">
+       <string>Write energy every n-th step:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QSpinBox" name="nstlogSpinBox">
+      <property name="maximum">
+       <number>999999999</number>
+      </property>
+      <property name="value">
+       <number>1000</number>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0">
+     <widget class="QLabel" name="label_22">
+      <property name="text">
+       <string>Write XTC file every n-th step:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0">
+     <widget class="QLabel" name="label_21">
+      <property name="text">
+       <string>Calculate energies every n-th step:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QSpinBox" name="nstxoutSpinBox">
+      <property name="maximum">
+       <number>999999999</number>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_17">
+      <property name="text">
+       <string>Write velocities every n-th step:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="1">
+     <widget class="QSpinBox" name="nstxout_copressedSpinBox">
+      <property name="maximum">
+       <number>999999999</number>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_19">
+      <property name="text">
+       <string>Write log file every n-th step:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QSpinBox" name="nstfoutSpinBox">
+      <property name="maximum">
+       <number>999999999</number>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1">
+     <widget class="QSpinBox" name="nstenergySpinBox">
+      <property name="maximum">
+       <number>999999999</number>
+      </property>
+      <property name="value">
+       <number>1000</number>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_18">
+      <property name="text">
+       <string>Write forces every n-th step:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="1">
+     <widget class="QSpinBox" name="nstcalcenergySpinBox">
+      <property name="maximum">
+       <number>999999999</number>
+      </property>
+      <property name="value">
+       <number>100</number>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="0">
+     <widget class="QLabel" name="label_23">
+      <property name="text">
+       <string>Precision of XTC files:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="0">
+     <widget class="QLabel" name="label_24">
+      <property name="text">
+       <string>Groups to write to XTC files (space separated list):</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_16">
+      <property name="text">
+       <string>Write coordinates every n-th step:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QSpinBox" name="nstvoutSpinBox">
+      <property name="maximum">
+       <number>999999999</number>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="2">
+     <widget class="QLabel" name="nstxoutTimeLabel">
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="2">
+     <widget class="QLabel" name="nstvoutTimeLabel">
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="2">
+     <widget class="QLabel" name="nstfoutTimeLabel">
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="2">
+     <widget class="QLabel" name="nstlogTimeLabel">
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="2">
+     <widget class="QLabel" name="nstenergyTimeLabel">
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="2">
+     <widget class="QLabel" name="nstcalcenergyTimeLabel">
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="2">
+     <widget class="QLabel" name="nstxout_compressedTimeLabel">
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="1">
+     <widget class="QLineEdit" name="compressed_x_grpsLineEdit">
+      <property name="text">
+       <string>System</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWizardPage" name="neighbourSearchWizardPage">
+   <property name="title">
+    <string>Neighbour searching</string>
+   </property>
+   <property name="subTitle">
+    <string>Neighbour searching options</string>
+   </property>
+   <attribute name="pageId">
+    <string notr="true">neighboursearchwizardpage</string>
+   </attribute>
+   <layout class="QGridLayout" name="gridLayout_4">
+    <item row="4" column="1">
+     <widget class="QDoubleSpinBox" name="verlet_buffer_toleranceDoubleSpinBox">
+      <property name="decimals">
+       <number>6</number>
+      </property>
+      <property name="maximum">
+       <double>999999999999.000000000000000</double>
+      </property>
+      <property name="value">
+       <double>0.005000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QComboBox" name="pbcComboBox">
+      <item>
+       <property name="text">
+        <string>xyz</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>xy</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>no</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_15">
+      <property name="text">
+       <string>Neighbour list update frequency [steps]:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QSpinBox" name="nstlistSpinBox"/>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_25">
+      <property name="text">
+       <string>Neighbour search type:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_14">
+      <property name="text">
+       <string>Cutoff-scheme:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_26">
+      <property name="text">
+       <string>Periodic boundary conditions:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QComboBox" name="ns_typeComboBox">
+      <item>
+       <property name="text">
+        <string>grid</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>simple</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="label_27">
+      <property name="text">
+       <string>Verlet buffer tolerance [kJ/mol/ps]:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QComboBox" name="cutoff_schemeComboBox">
+      <item>
+       <property name="text">
+        <string>Verlet</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Group</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item row="1" column="2">
+     <widget class="QLabel" name="nstListTimeLabel">
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0">
+     <widget class="QLabel" name="label_28">
+      <property name="text">
+       <string>Cut-off distance for the neighbour list [nm]:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="1">
+     <widget class="QDoubleSpinBox" name="rlistDoubleSpinBox">
+      <property name="decimals">
+       <number>4</number>
+      </property>
+      <property name="maximum">
+       <double>999999999999.000000000000000</double>
+      </property>
+      <property name="value">
+       <double>0.010000000000000</double>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWizardPage" name="coulombWizardPage">
+   <property name="title">
+    <string>Electrostatics</string>
+   </property>
+   <property name="subTitle">
+    <string>Coulomb interaction</string>
+   </property>
+   <attribute name="pageId">
+    <string notr="true">coulombwizardpage</string>
+   </attribute>
+   <layout class="QGridLayout" name="gridLayout_5">
+    <item row="4" column="0">
+     <widget class="QLabel" name="label_33">
+      <property name="text">
+       <string>Relative dielectric constant (0 means infinity):</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_30">
+      <property name="text">
+       <string>Modifier:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QComboBox" name="coulomb_modifierComboBox">
+      <item>
+       <property name="text">
+        <string>None</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Potential-shift-Verlet</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Potential-shift</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_31">
+      <property name="text">
+       <string>Switching distance [nm]:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QComboBox" name="coulombtypeComboBox">
+      <item>
+       <property name="text">
+        <string>PME</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>PME-Switch</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Cut-off</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Shift</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Reaction-Field-zero</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Reaction-Field</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_29">
+      <property name="text">
+       <string>Algorithm:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_32">
+      <property name="text">
+       <string>Short-range cut-off distance [nm]:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0">
+     <widget class="QLabel" name="label_34">
+      <property name="text">
+       <string>Relative dielectric constant of the reaction field:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QDoubleSpinBox" name="rcoulomb_switchDoubleSpinBox">
+      <property name="decimals">
+       <number>4</number>
+      </property>
+      <property name="maximum">
+       <double>999999.000000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QDoubleSpinBox" name="rcoulombDoubleSpinBox">
+      <property name="maximum">
+       <double>99999999999.000000000000000</double>
+      </property>
+      <property name="value">
+       <double>1.000000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1">
+     <widget class="QDoubleSpinBox" name="epsilon_rDoubleSpinBox">
+      <property name="decimals">
+       <number>4</number>
+      </property>
+      <property name="maximum">
+       <double>99999999999.000000000000000</double>
+      </property>
+      <property name="value">
+       <double>1.000000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="1">
+     <widget class="QDoubleSpinBox" name="epsilon_rfDoubleSpinBox">
+      <property name="decimals">
+       <number>4</number>
+      </property>
+      <property name="maximum">
+       <double>9999999999999.000000000000000</double>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWizardPage" name="vdwWizardPage">
+   <property name="title">
+    <string>Van der Waals</string>
+   </property>
+   <property name="subTitle">
+    <string>Van der Waals interactions</string>
+   </property>
+   <attribute name="pageId">
+    <string notr="true">vdwwizardpage</string>
+   </attribute>
+   <layout class="QGridLayout" name="gridLayout_6">
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_38">
+      <property name="text">
+       <string>Switching distance [nm]:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_35">
+      <property name="text">
+       <string>Algorithm:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QComboBox" name="vdwtypeComboBox">
+      <item>
+       <property name="text">
+        <string>Cut-off</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>PME</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Shift</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Switch</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_36">
+      <property name="text">
+       <string>Modifier:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QComboBox" name="vdw_modifierComboBox">
+      <item>
+       <property name="text">
+        <string>Potential-shift-Verlet</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Potential-shift</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>None</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Force-switch</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Potential-switch</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_37">
+      <property name="text">
+       <string>Cut-off distance for the short range VdW [nm]:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="label_39">
+      <property name="text">
+       <string>Dispersion correction:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1">
+     <widget class="QComboBox" name="dispcorrComboBox">
+      <item>
+       <property name="text">
+        <string>no</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>EnerPres</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Ener</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QDoubleSpinBox" name="rvdwDoubleSpinBox">
+      <property name="decimals">
+       <number>4</number>
+      </property>
+      <property name="maximum">
+       <double>99999999.000000000000000</double>
+      </property>
+      <property name="value">
+       <double>1.000000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QDoubleSpinBox" name="rvdw_switchDoubleSpinBox">
+      <property name="maximum">
+       <double>9999999999.000000000000000</double>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWizardPage" name="ewaldWizardPage">
+   <property name="title">
+    <string>Ewald &amp; Constraints</string>
+   </property>
+   <property name="subTitle">
+    <string>Settings for Ewald summation and bond constraint algorithms</string>
+   </property>
+   <attribute name="pageId">
+    <string notr="true">ewaldwizardpage</string>
+   </attribute>
+   <layout class="QGridLayout" name="gridLayout_7">
+    <item row="4" column="0">
+     <widget class="QLabel" name="label_57">
+      <property name="text">
+       <string>Constraint algorithm:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0">
+     <widget class="QLabel" name="label_59">
+      <property name="text">
+       <string>LINCS order:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QSpinBox" name="pme_orderSpinBox">
+      <property name="value">
+       <number>4</number>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QComboBox" name="constraintsComboBox">
+      <item>
+       <property name="text">
+        <string>none</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>h-bonds</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>all-bonds</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>h-angles</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>all-angles</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item row="4" column="1">
+     <widget class="QLabel" name="label_58">
+      <property name="text">
+       <string>LINCS</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_40">
+      <property name="text">
+       <string>Fourier spacing [nm]:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0">
+     <widget class="QLabel" name="label_60">
+      <property name="text">
+       <string>Numbr of LINCS iterations:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QDoubleSpinBox" name="fourierspacingDoubleSpinBox">
+      <property name="decimals">
+       <number>4</number>
+      </property>
+      <property name="maximum">
+       <double>999999999.000000000000000</double>
+      </property>
+      <property name="value">
+       <double>0.120000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0" colspan="2">
+     <widget class="Line" name="line">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_56">
+      <property name="text">
+       <string>Apply constraints to:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_41">
+      <property name="text">
+       <string>PME interpolation order:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="1">
+     <widget class="QSpinBox" name="lincs_orderSpinBox">
+      <property name="value">
+       <number>4</number>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="1">
+     <widget class="QSpinBox" name="lincs_iterSpinBox">
+      <property name="minimum">
+       <number>1</number>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="0">
+     <widget class="QLabel" name="label_61">
+      <property name="text">
+       <string>LINCS warning angle threshold [deg]:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="1">
+     <widget class="QDoubleSpinBox" name="lincs_warnangleDoubleSpinBox">
+      <property name="maximum">
+       <double>360.000000000000000</double>
+      </property>
+      <property name="value">
+       <double>30.000000000000000</double>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWizardPage" name="tcouplWizardPage">
+   <property name="title">
+    <string>Temperature coupling</string>
+   </property>
+   <property name="subTitle">
+    <string>Thermostat parameters</string>
+   </property>
+   <attribute name="pageId">
+    <string notr="true">thermostatwizardpage</string>
+   </attribute>
+   <layout class="QGridLayout" name="gridLayout_8">
+    <item row="1" column="2">
+     <widget class="QLabel" name="nsttcoupleTimeLabel">
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1" colspan="2">
+     <widget class="QDoubleSpinBox" name="tau_tDoubleSpinBox">
+      <property name="decimals">
+       <number>4</number>
+      </property>
+      <property name="maximum">
+       <double>999999999999.000000000000000</double>
+      </property>
+      <property name="value">
+       <double>1.000000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1" colspan="2">
+     <widget class="QLineEdit" name="tc_grpsLineEdit"/>
+    </item>
+    <item row="1" column="1">
+     <widget class="QSpinBox" name="nsttcoupleSpinBox">
+      <property name="specialValueText">
+       <string>=nstlist</string>
+      </property>
+      <property name="minimum">
+       <number>-1</number>
+      </property>
+      <property name="value">
+       <number>-1</number>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1" colspan="2">
+     <widget class="QDoubleSpinBox" name="ref_tDoubleSpinBox">
+      <property name="decimals">
+       <number>4</number>
+      </property>
+      <property name="maximum">
+       <double>9999999.000000000000000</double>
+      </property>
+      <property name="value">
+       <double>300.000000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_42">
+      <property name="text">
+       <string>Algorithm:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_46">
+      <property name="text">
+       <string>Reference temperature [K, common for all groups]:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="label_47">
+      <property name="text">
+       <string>Time constant for coupling [ps, common for all groups]:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_43">
+      <property name="text">
+       <string>Temperature coupling frequency [steps]:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_45">
+      <property name="text">
+       <string>Temperature coupling groups [space separated list]:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1" colspan="2">
+     <widget class="QComboBox" name="tcouplComboBox">
+      <item>
+       <property name="text">
+        <string>berendsen</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>nose-hoover</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>v-rescale</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item row="5" column="0" colspan="3">
+     <widget class="QGroupBox" name="groupBox">
+      <property name="title">
+       <string>Veloci&amp;ty generation</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_9">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_44">
+         <property name="text">
+          <string>Temperature [K]:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QDoubleSpinBox" name="gen_tempDoubleSpinBox">
+         <property name="decimals">
+          <number>4</number>
+         </property>
+         <property name="maximum">
+          <double>99999999999.000000000000000</double>
+         </property>
+         <property name="value">
+          <double>300.000000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_48">
+         <property name="text">
+          <string>Random seed:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QSpinBox" name="gen_seedSpinBox">
+         <property name="specialValueText">
+          <string>Pseudo-random</string>
+         </property>
+         <property name="minimum">
+          <number>-1</number>
+         </property>
+         <property name="maximum">
+          <number>999999999</number>
+         </property>
+         <property name="value">
+          <number>-1</number>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWizardPage" name="pcouplWizardPage">
+   <property name="title">
+    <string>Pressure coupling</string>
+   </property>
+   <property name="subTitle">
+    <string>Tune the barostat</string>
+   </property>
+   <attribute name="pageId">
+    <string notr="true">barostatwizardpage</string>
+   </attribute>
+   <layout class="QGridLayout" name="gridLayout_10">
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_49">
+      <property name="text">
+       <string>Algorithm:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_50">
+      <property name="text">
+       <string>Coupling type:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QSpinBox" name="nstpcoupleSpinBox">
+        <property name="specialValueText">
+         <string>=nstlist</string>
+        </property>
+        <property name="minimum">
+         <number>-1</number>
+        </property>
+        <property name="maximum">
+         <number>99999999</number>
+        </property>
+        <property name="value">
+         <number>-1</number>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="nstpcoupleTimeLabel">
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="5" column="1">
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <item>
+       <widget class="QDoubleSpinBox" name="ref_pDoubleSpinbox_1"/>
+      </item>
+      <item>
+       <widget class="QDoubleSpinBox" name="ref_pDoubleSpinBox_2"/>
+      </item>
+     </layout>
+    </item>
+    <item row="1" column="1">
+     <widget class="QComboBox" name="pcopultypeComboBox">
+      <item>
+       <property name="text">
+        <string>isotropic</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>semiisotropic</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>surface-tension</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item row="5" column="0">
+     <widget class="QLabel" name="label_54">
+      <property name="text">
+       <string>Reference pressure [bar]:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_52">
+      <property name="text">
+       <string>Time constant for pressure coupling [ps]:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_51">
+      <property name="text">
+       <string>Pressure coupling frequency [steps]:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QDoubleSpinBox" name="tau_pDoubleSpinBox">
+      <property name="decimals">
+       <number>4</number>
+      </property>
+      <property name="maximum">
+       <double>9999999.000000000000000</double>
+      </property>
+      <property name="value">
+       <double>1.000000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QComboBox" name="pcouplComboBox">
+      <item>
+       <property name="text">
+        <string>Berendsen</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Parrinello-Rahman</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item row="4" column="1">
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QDoubleSpinBox" name="compressibilityDoubleSpinBox_1"/>
+      </item>
+      <item>
+       <widget class="QDoubleSpinBox" name="compressibilityDoubleSpinBox_2"/>
+      </item>
+     </layout>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="label_53">
+      <property name="text">
+       <string>Compressibility [1/bar]:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0">
+     <widget class="QLabel" name="label_55">
+      <property name="text">
+       <string>Reference coordinate scaling:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="1">
+     <widget class="QComboBox" name="refcoord_scalingComboBox">
+      <item>
+       <property name="text">
+        <string>no</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>all</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>com</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWizardPage" name="endWizardPage">
+   <property name="title">
+    <string>Finished</string>
+   </property>
+   <property name="subTitle">
+    <string>Please select a file to save your MDP file to...</string>
+   </property>
+   <attribute name="pageId">
+    <string notr="true">endwizardpage</string>
+   </attribute>
+   <layout class="QVBoxLayout" name="verticalLayout_3"/>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>WPIntro</class>
+   <extends>QWizardPage</extends>
+   <header location="global">wpintro.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

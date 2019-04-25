@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>WizardPage</class>
+ <widget class="QWizardPage" name="WizardPage">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>WizardPage</string>
+  </property>
+  <property name="title">
+   <string>Ewald &amp; Constraints</string>
+  </property>
+  <property name="subTitle">
+   <string>Settings for Ewald summation and bond constraint algorithms</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="label_40">
+     <property name="text">
+      <string>Fourier spacing [nm]:</string>
+     </property>
+     <property name="buddy">
+      <cstring>fourierspacingDoubleSpinBox</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QDoubleSpinBox" name="fourierspacingDoubleSpinBox">
+     <property name="decimals">
+      <number>4</number>
+     </property>
+     <property name="maximum">
+      <double>999999999.000000000000000</double>
+     </property>
+     <property name="value">
+      <double>0.120000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_41">
+     <property name="text">
+      <string>PME interpolation order:</string>
+     </property>
+     <property name="buddy">
+      <cstring>pme_orderSpinBox</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QSpinBox" name="pme_orderSpinBox">
+     <property name="value">
+      <number>4</number>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0" colspan="2">
+    <widget class="Line" name="line">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="label_56">
+     <property name="text">
+      <string>Apply constraints to:</string>
+     </property>
+     <property name="buddy">
+      <cstring>constraintsComboBox</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <widget class="QComboBox" name="constraintsComboBox">
+     <item>
+      <property name="text">
+       <string>none</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>h-bonds</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>all-bonds</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>h-angles</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>all-angles</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QLabel" name="label_57">
+     <property name="text">
+      <string>Constraint algorithm:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QLabel" name="label_58">
+     <property name="text">
+      <string>LINCS</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0">
+    <widget class="QLabel" name="label_59">
+     <property name="text">
+      <string>LINCS order:</string>
+     </property>
+     <property name="buddy">
+      <cstring>lincs_orderSpinBox</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="1">
+    <widget class="QSpinBox" name="lincs_orderSpinBox">
+     <property name="value">
+      <number>4</number>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="0">
+    <widget class="QLabel" name="label_60">
+     <property name="text">
+      <string>Numbr of LINCS iterations:</string>
+     </property>
+     <property name="buddy">
+      <cstring>lincs_iterSpinBox</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="1">
+    <widget class="QSpinBox" name="lincs_iterSpinBox">
+     <property name="minimum">
+      <number>1</number>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="0">
+    <widget class="QLabel" name="label_61">
+     <property name="text">
+      <string>LINCS warning angle threshold [deg]:</string>
+     </property>
+     <property name="buddy">
+      <cstring>lincs_warnangleDoubleSpinBox</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="1">
+    <widget class="QDoubleSpinBox" name="lincs_warnangleDoubleSpinBox">
+     <property name="maximum">
+      <double>360.000000000000000</double>
+     </property>
+     <property name="value">
+      <double>30.000000000000000</double>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

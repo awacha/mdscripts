@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>WizardPage</class>
+ <widget class="QWizardPage" name="WizardPage">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>WizardPage</string>
+  </property>
+  <property name="title">
+   <string>Type of the simulation</string>
+  </property>
+  <property name="subTitle">
+   <string>Select the type of simulation</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QRadioButton" name="typeEnergyMinimizationRadioButton">
+     <property name="text">
+      <string>Energy minimi&amp;zation</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="typeNVTRadioButton">
+     <property name="text">
+      <string>NV&amp;T ensemble</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="typeNPTRadioButton">
+     <property name="text">
+      <string>&amp;NPT ensemble</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="label_8">
+       <property name="text">
+        <string>Time unit (for display only):</string>
+       </property>
+       <property name="buddy">
+        <cstring>timeUnitComboBox</cstring>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="timeUnitComboBox">
+       <property name="currentIndex">
+        <number>2</number>
+       </property>
+       <item>
+        <property name="text">
+         <string>fs</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>ps</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>ns</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>ms</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

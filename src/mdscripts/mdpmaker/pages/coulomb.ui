@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>WizardPage</class>
+ <widget class="QWizardPage" name="WizardPage">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>474</width>
+    <height>234</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>WizardPage</string>
+  </property>
+  <property name="title">
+   <string>Electrostatics</string>
+  </property>
+  <property name="subTitle">
+   <string>Coulomb interaction parameters</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="label_29">
+     <property name="text">
+      <string>Algorithm:</string>
+     </property>
+     <property name="buddy">
+      <cstring>coulombtypeComboBox</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QComboBox" name="coulombtypeComboBox">
+     <item>
+      <property name="text">
+       <string>PME</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>PME-Switch</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Cut-off</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Shift</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Reaction-Field-zero</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Reaction-Field</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_30">
+     <property name="text">
+      <string>Modifier:</string>
+     </property>
+     <property name="buddy">
+      <cstring>coulomb_modifierComboBox</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QComboBox" name="coulomb_modifierComboBox">
+     <item>
+      <property name="text">
+       <string>None</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Potential-shift-Verlet</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Potential-shift</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_31">
+     <property name="text">
+      <string>Switching distance [nm]:</string>
+     </property>
+     <property name="buddy">
+      <cstring>rcoulomb_switchDoubleSpinBox</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QDoubleSpinBox" name="rcoulomb_switchDoubleSpinBox">
+     <property name="decimals">
+      <number>4</number>
+     </property>
+     <property name="maximum">
+      <double>999999.000000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="label_32">
+     <property name="text">
+      <string>Short-range cut-off distance [nm]:</string>
+     </property>
+     <property name="buddy">
+      <cstring>rcoulombDoubleSpinBox</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <widget class="QDoubleSpinBox" name="rcoulombDoubleSpinBox">
+     <property name="maximum">
+      <double>99999999999.000000000000000</double>
+     </property>
+     <property name="value">
+      <double>1.000000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QLabel" name="label_33">
+     <property name="text">
+      <string>Relative dielectric constant (&amp;0 means infinity):</string>
+     </property>
+     <property name="buddy">
+      <cstring>epsilon_rDoubleSpinBox</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QDoubleSpinBox" name="epsilon_rDoubleSpinBox">
+     <property name="decimals">
+      <number>4</number>
+     </property>
+     <property name="maximum">
+      <double>99999999999.000000000000000</double>
+     </property>
+     <property name="value">
+      <double>1.000000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0">
+    <widget class="QLabel" name="label_34">
+     <property name="text">
+      <string>Relative dielectric constant of the reaction field:</string>
+     </property>
+     <property name="buddy">
+      <cstring>epsilon_rfDoubleSpinBox</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="1">
+    <widget class="QDoubleSpinBox" name="epsilon_rfDoubleSpinBox">
+     <property name="decimals">
+      <number>4</number>
+     </property>
+     <property name="maximum">
+      <double>9999999999999.000000000000000</double>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

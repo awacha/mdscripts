@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>WizardPage</class>
+ <widget class="QWizardPage" name="WizardPage">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>541</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>WizardPage</string>
+  </property>
+  <property name="title">
+   <string>MD Integrator</string>
+  </property>
+  <property name="subTitle">
+   <string>Choose the main parameters for the MD simulations</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="label_9">
+     <property name="text">
+      <string>Time step [ps]:</string>
+     </property>
+     <property name="buddy">
+      <cstring>timeStepDoubleSpinBox</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QDoubleSpinBox" name="timeStepDoubleSpinBox">
+     <property name="decimals">
+      <number>10</number>
+     </property>
+     <property name="maximum">
+      <double>99999999.000000000000000</double>
+     </property>
+     <property name="value">
+      <double>0.002000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_10">
+     <property name="text">
+      <string>Number of steps:</string>
+     </property>
+     <property name="buddy">
+      <cstring>nstepsSpinBox</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QSpinBox" name="nstepsSpinBox">
+     <property name="maximum">
+      <number>999999999</number>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="2">
+    <widget class="QLabel" name="nstepsTimeLabel">
+     <property name="text">
+      <string>TextLabel</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_11">
+     <property name="text">
+      <string>Center of mass motion (COMM) removal:</string>
+     </property>
+     <property name="buddy">
+      <cstring>commTypeComboBox</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QComboBox" name="commTypeComboBox">
+     <item>
+      <property name="text">
+       <string>Linear</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Angular</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Linear-acceleration-correction</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>None</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="label_12">
+     <property name="text">
+      <string>Fre&amp;quency for COMM removal [steps]:</string>
+     </property>
+     <property name="buddy">
+      <cstring>nstcommSpinBox</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <widget class="QSpinBox" name="nstcommSpinBox">
+     <property name="maximum">
+      <number>999999999</number>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="2">
+    <widget class="QLabel" name="nstcommTimeLabel">
+     <property name="text">
+      <string>TextLabel</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QLabel" name="label_13">
+     <property name="text">
+      <string>COMM groups [space separated list]:</string>
+     </property>
+     <property name="buddy">
+      <cstring>commGrpsLineEdit</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QLineEdit" name="commGrpsLineEdit">
+     <property name="text">
+      <string>System</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="2">
+    <widget class="QLabel" name="timeStepTimeLabel">
+     <property name="text">
+      <string>TextLabel</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

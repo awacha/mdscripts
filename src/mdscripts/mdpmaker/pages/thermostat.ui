@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>WizardPage</class>
+ <widget class="QWizardPage" name="WizardPage">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>518</width>
+    <height>342</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>WizardPage</string>
+  </property>
+  <property name="title">
+   <string>Temperature coupling</string>
+  </property>
+  <property name="subTitle">
+   <string>Thermostat parameters</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="label_42">
+     <property name="text">
+      <string>A&amp;lgorithm:</string>
+     </property>
+     <property name="buddy">
+      <cstring>tcouplComboBox</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1" colspan="2">
+    <widget class="QComboBox" name="tcouplComboBox">
+     <item>
+      <property name="text">
+       <string>berendsen</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>nose-hoover</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>v-rescale</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_43">
+     <property name="text">
+      <string>Temperature coupling fre&amp;quency [steps]:</string>
+     </property>
+     <property name="buddy">
+      <cstring>nsttcoupleSpinBox</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QSpinBox" name="nsttcoupleSpinBox">
+     <property name="specialValueText">
+      <string>=nstlist</string>
+     </property>
+     <property name="minimum">
+      <number>-1</number>
+     </property>
+     <property name="value">
+      <number>-1</number>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="2">
+    <widget class="QLabel" name="nsttcoupleTimeLabel">
+     <property name="text">
+      <string>TextLabel</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_45">
+     <property name="text">
+      <string>&amp;Temperature coupling groups [space separated list]:</string>
+     </property>
+     <property name="buddy">
+      <cstring>tc_grpsLineEdit</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1" colspan="2">
+    <widget class="QLineEdit" name="tc_grpsLineEdit"/>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="label_46">
+     <property name="text">
+      <string>Reference temperature [&amp;K, common for all groups]:</string>
+     </property>
+     <property name="buddy">
+      <cstring>ref_tDoubleSpinBox</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1" colspan="2">
+    <widget class="QDoubleSpinBox" name="ref_tDoubleSpinBox">
+     <property name="decimals">
+      <number>4</number>
+     </property>
+     <property name="maximum">
+      <double>9999999.000000000000000</double>
+     </property>
+     <property name="value">
+      <double>300.000000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QLabel" name="label_47">
+     <property name="text">
+      <string>Time constant for coupling [ps, common for all groups]:</string>
+     </property>
+     <property name="buddy">
+      <cstring>tau_tDoubleSpinBox</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1" colspan="2">
+    <widget class="QDoubleSpinBox" name="tau_tDoubleSpinBox">
+     <property name="decimals">
+      <number>4</number>
+     </property>
+     <property name="maximum">
+      <double>999999999999.000000000000000</double>
+     </property>
+     <property name="value">
+      <double>1.000000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0" colspan="3">
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Velocity &amp;generation</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+     </property>
+     <property name="flat">
+      <bool>false</bool>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_9">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_44">
+        <property name="text">
+         <string>Temperature [K]:</string>
+        </property>
+        <property name="buddy">
+         <cstring>gen_tempDoubleSpinBox</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QDoubleSpinBox" name="gen_tempDoubleSpinBox">
+        <property name="decimals">
+         <number>4</number>
+        </property>
+        <property name="maximum">
+         <double>99999999999.000000000000000</double>
+        </property>
+        <property name="value">
+         <double>300.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_48">
+        <property name="text">
+         <string>Ra&amp;ndom seed:</string>
+        </property>
+        <property name="buddy">
+         <cstring>gen_seedSpinBox</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QSpinBox" name="gen_seedSpinBox">
+        <property name="specialValueText">
+         <string>Pseudo-random</string>
+        </property>
+        <property name="minimum">
+         <number>-1</number>
+        </property>
+        <property name="maximum">
+         <number>999999999</number>
+        </property>
+        <property name="value">
+         <number>-1</number>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

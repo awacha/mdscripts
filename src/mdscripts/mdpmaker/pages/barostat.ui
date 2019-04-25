@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>WizardPage</class>
+ <widget class="QWizardPage" name="WizardPage">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>431</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>WizardPage</string>
+  </property>
+  <property name="title">
+   <string>Pressure coupling</string>
+  </property>
+  <property name="subTitle">
+   <string>Tune the barostat</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="label_49">
+     <property name="text">
+      <string>Algorithm:</string>
+     </property>
+     <property name="buddy">
+      <cstring>pcouplComboBox</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QComboBox" name="pcouplComboBox">
+     <item>
+      <property name="text">
+       <string>Berendsen</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Parrinello-Rahman</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_50">
+     <property name="text">
+      <string>Coupling type:</string>
+     </property>
+     <property name="buddy">
+      <cstring>pcopultypeComboBox</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QComboBox" name="pcopultypeComboBox">
+     <item>
+      <property name="text">
+       <string>isotropic</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>semiisotropic</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>surface-tension</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_51">
+     <property name="text">
+      <string>Pressure coupling fre&amp;quency [steps]:</string>
+     </property>
+     <property name="buddy">
+      <cstring>nstpcoupleSpinBox</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QSpinBox" name="nstpcoupleSpinBox">
+       <property name="specialValueText">
+        <string>=nstlist</string>
+       </property>
+       <property name="minimum">
+        <number>-1</number>
+       </property>
+       <property name="maximum">
+        <number>99999999</number>
+       </property>
+       <property name="value">
+        <number>-1</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="nstpcoupleTimeLabel">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="label_52">
+     <property name="text">
+      <string>Time constant for pressure coupling [ps]:</string>
+     </property>
+     <property name="buddy">
+      <cstring>tau_pDoubleSpinBox</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <widget class="QDoubleSpinBox" name="tau_pDoubleSpinBox">
+     <property name="decimals">
+      <number>4</number>
+     </property>
+     <property name="maximum">
+      <double>9999999.000000000000000</double>
+     </property>
+     <property name="value">
+      <double>1.000000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QLabel" name="label_53">
+     <property name="text">
+      <string>Compressibility [&amp;1/bar]:</string>
+     </property>
+     <property name="buddy">
+      <cstring>compressibilityDoubleSpinBox_1</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QDoubleSpinBox" name="compressibilityDoubleSpinBox_1"/>
+     </item>
+     <item>
+      <widget class="QDoubleSpinBox" name="compressibilityDoubleSpinBox_2"/>
+     </item>
+    </layout>
+   </item>
+   <item row="5" column="0">
+    <widget class="QLabel" name="label_54">
+     <property name="text">
+      <string>Reference pressure [bar]:</string>
+     </property>
+     <property name="buddy">
+      <cstring>ref_pDoubleSpinbox_1</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="1">
+    <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <item>
+      <widget class="QDoubleSpinBox" name="ref_pDoubleSpinbox_1"/>
+     </item>
+     <item>
+      <widget class="QDoubleSpinBox" name="ref_pDoubleSpinBox_2"/>
+     </item>
+    </layout>
+   </item>
+   <item row="6" column="0">
+    <widget class="QLabel" name="label_55">
+     <property name="text">
+      <string>Reference coordinate scaling:</string>
+     </property>
+     <property name="buddy">
+      <cstring>refcoord_scalingComboBox</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="1">
+    <widget class="QComboBox" name="refcoord_scalingComboBox">
+     <item>
+      <property name="text">
+       <string>no</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>all</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>com</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>pcouplComboBox</tabstop>
+  <tabstop>pcopultypeComboBox</tabstop>
+  <tabstop>nstpcoupleSpinBox</tabstop>
+  <tabstop>tau_pDoubleSpinBox</tabstop>
+  <tabstop>compressibilityDoubleSpinBox_1</tabstop>
+  <tabstop>compressibilityDoubleSpinBox_2</tabstop>
+  <tabstop>ref_pDoubleSpinbox_1</tabstop>
+  <tabstop>ref_pDoubleSpinBox_2</tabstop>
+  <tabstop>refcoord_scalingComboBox</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>
