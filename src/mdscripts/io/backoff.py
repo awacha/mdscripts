@@ -1,7 +1,8 @@
 import os
+from typing import Optional
 
 
-def backoff(filename):
+def backoff(filename:str) -> Optional[str]:
     """Create a backup from a file as the GROMACS programs do.
 
     E.g. if filename is "topol.top", the backup files will be named

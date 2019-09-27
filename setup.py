@@ -10,6 +10,7 @@ except ImportError:
     def compileUi(*args):
         pass
 
+
 def compile_uis(packageroot):
     if compileUi is None:
         return
@@ -21,18 +22,21 @@ def compile_uis(packageroot):
                 compileUi(fname, pyfile)
             print('Compiled UI file: {} -> {}.'.format(fname, pyfilename))
 
-compile_uis('src')
 
+compile_uis('src')
 
 setup(name='mdscripts', author='Andras Wacha',
       author_email='awacha@gmail.com', url='http://github.com/awacha/mdscripts',
       description='Various scripts for molecular dynamics simulations',
       package_dir={'': 'src'},
-      packages=['mdscripts', 'mdscripts.io', 'mdscripts.rama_analyzer', 'mdscripts.rtpbrowser','mdscripts.core','mdscripts.mdpmaker', 'mdscripts.mdpmaker.pages'],
+      packages=['mdscripts', 'mdscripts.io', 'mdscripts.rama_analyzer', 'mdscripts.rtpbrowser', 'mdscripts.core',
+                'mdscripts.mdpmaker', 'mdscripts.mdpmaker.pages', 'mdscripts.updtopocount'],
       entry_points={'gui_scripts': ['gmx_extract_energy = mdscripts.extract_energy:run',
                                     'gmx_rama_analyzer = mdscripts.rama_analyzer.__main__:run',
                                     'gmx_rtp_browser = mdscripts.rtpbrowser.__main__:run',
-                                    'gmx_mdp_maker = mdscripts.mdpmaker.__main__:run'],
+                                    'gmx_mdp_maker = mdscripts.mdpmaker.__main__:run',
+                                    'gmx_preprocess_topology = mdscripts.io.cpreprocessorparser:topologypreprocessor',
+                                    'gmx_update_counts_in_topology = mdscripts.updtopocount:main'],
                     'console_scripts': ['gmx_insert_protein = mdscripts.insertprotein:run',
                                         'gmx_intralayer_solvents = mdscripts.find_intrabilayer_solvent:run'],
                     },
