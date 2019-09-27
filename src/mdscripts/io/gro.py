@@ -2,7 +2,7 @@ import numpy as np
 
 
 class GROFile(object):
-    dtype = np.dtype([('resi', 'i4'), ('resn', 'S6'), ('atomtype', 'S6'), ('atomidx', 'i4'), ('x', 'f4'),
+    dtype = np.dtype([('resi', 'i4'), ('resn', 'S6'), ('name', 'S6'), ('idx', 'i4'), ('x', 'f4'),
                       ('y', 'f4'), ('z', 'f4'), ('vx', 'f4'), ('vy', 'f4'), ('vz', 'f4')])
 
     def __init__(self, comment, boxsize, grodata=None):
@@ -14,7 +14,7 @@ class GROFile(object):
         self.boxsize = boxsize
 
     @classmethod
-    def new_from_file(cls, grofile):
+    def load(cls, grofile):
         """Loads a .gro file. Currently velocities are not supported."""
         with open(grofile, 'rt', encoding='utf-8') as f:
             comment = f.readline()

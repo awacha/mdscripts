@@ -28,7 +28,7 @@ def run():
     parser.add_argument('-f', action='store', dest='inputfile', type=str, help='Input .gro file')
     parser.add_argument('-s', action='store', dest='solventname', type=str, help='Solvent residue name', default='SOL')
     parser.add_argument('-l', action='store', dest='lipidname', type=str, help='Lipid residue name')
-    parser.add_argument('-a', action='store', dest='atomtype', type=str, help='Lipid headgroup atom type', default='P8')
+    parser.add_argument('-a', action='store', dest='atomname', type=str, help='Lipid headgroup atom name', default='P8')
     parser.add_argument('-t', action='store', dest='topology', type=str, help='Topology  file (.top)',
                         default=None)
     parser.add_argument('-o', action='store', dest='finalgro', type=str, help='The output .gro file',
@@ -38,9 +38,9 @@ def run():
     if args['inputfile'] is None or args['lipidname'] is None:
         parser.print_help()
         sys.exit(1)
-    gro = GROFile.new_from_file(args['inputfile'])
+    gro = GROFile.load(args['inputfile'])
     print('Loaded {:d} atoms from file {}.'.format(len(gro), args['inputfile']))
-    badsolvents, lower, upper = interlayersolvents(gro, args['lipidname'], args['solventname'], args['atomtype'])
+    badsolvents, lower, upper = interlayersolvents(gro, args['lipidname'], args['solventname'], args['atomname'])
     print('Lower and upper mean z coordinates of the head group layer: {} and {}'.format(lower, upper))
     badsolventresidues = badsolvents.resids()
     print('Found {} misplaced solvent molecules:'.format(len(badsolventresidues)))
