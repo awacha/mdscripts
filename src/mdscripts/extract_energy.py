@@ -347,7 +347,7 @@ def extract_energy(edrfile, structurefile=None, outputfile=None):
     gmx_energy = subprocess.Popen(popenargs, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
                                   universal_newlines=True)
     try:
-        outs, errs = gmx_energy.communicate('\n'.join([str(x) for x in range(1, 100)]), timeout=2)
+        outs, errs = gmx_energy.communicate('\n'.join([str(x) for x in range(1, 100)]), timeout=200)
     except subprocess.TimeoutExpired:
         gmx_energy.kill()
         outs, errs = gmx_energy.communicate()
